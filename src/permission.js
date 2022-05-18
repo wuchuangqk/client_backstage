@@ -7,17 +7,17 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
 
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   NProgress.start()
 
   if (true) {
-    if (to.path === '/login') {
-      // if is logged in, redirect to the home page
-      next({ path: '/login' })
-      NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
-    } else {
-      next()
-    }
+    // if (to.path === '/login') {
+    //   // if is logged in, redirect to the home page
+    //   next({ path: '/login' })
+    //   NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
+    // } else {
+    next()
+    // }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
