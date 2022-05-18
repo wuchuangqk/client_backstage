@@ -134,6 +134,20 @@ export const constantRoutes = [
         meta: { title: '项目列表' }
       }
     ]
+  },
+  {
+    path: '/user_management',
+    component: Layout,
+    meta: { title: '用户管理', icon: 'guide' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'user-list',
+        component: () => import('@/views/user_management/user_list'),
+        name: 'user',
+        meta: { title: '用户列表' }
+      }
+    ]
   }
 ]
 /**

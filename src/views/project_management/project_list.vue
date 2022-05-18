@@ -1,7 +1,8 @@
 <template>
   <div>
 
-    <Head :searchParams="searchParams" :functionParams="functionParams" @clickBack="clickBack" />
+    <Head :searchParams="searchParams" :functionParams="functionParams" @clickBack="clickBack"
+      @searchList="searchList" />
     <div class="content">
       <el-table :data="tableData" style="width: 100%" border
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
@@ -23,8 +24,7 @@
         </el-table-column>
       </el-table>
       <div class="content_1">
-        <el-pagination :page-sizes="[100, 200, 300, 400]" :page-size="100"
-          layout="total, sizes, prev, pager, next, jumper" :total="400" background />
+        <el-pagination :page-size="10" layout="total, prev, pager, next, jumper" :total="total" background />
       </div>
     </div>
     <el-dialog title="添加项目" :visible.sync="dialogFormVisible">
@@ -112,7 +112,7 @@ export default {
   data() {
     return {
       searchParams: [
-        { label: "项目名称", value: "", type: "input", placeholder: "请输入项目名称" },
+        { label: "项目名称", value: "", type: "input", placeholder: "请输入项目名称", key: 'title' },
         { label: "推广类型", value: "", type: "select", placeholder: "请选择推广类型", data: [{ value: '1', key: 1 }] }
       ],
       listParams: {
@@ -174,6 +174,10 @@ export default {
       this.updateParams = item
       this.updateDialog = true
     },
+    searchList(params) {
+      this.listParams.title = params.title
+      this.getProjectList()
+    }
   },
   mounted() {
     this.promotion = PROMOTION_TYPE
