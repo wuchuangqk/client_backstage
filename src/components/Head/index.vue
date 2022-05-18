@@ -23,7 +23,7 @@
           </el-date-picker>
         </el-form-item>
       </el-form>
-      <div class="header_1">
+      <div>
         <el-button type="primary" v-for="(item, index) in functionParams" :key="index" @click="functionClick(item)">
           {{ item.text }}</el-button>
       </div>
@@ -73,4 +73,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" >
+.header {
+  height: 1.15rem;
+  padding: 0 .25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+}
+</style>
