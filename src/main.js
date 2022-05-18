@@ -10,7 +10,7 @@ import './utils/rem'
 import './icons'
 import './permission' // permission control
 Vue.use(Element, {
-  size: 'small',
+  size: 'medium',
 })
 Vue.config.productionTip = false
 

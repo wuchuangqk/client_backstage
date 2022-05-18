@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
-  name: 'App'
+  name: 'App',
+  created() {
+    Vue.prototype._headerCellStyle = { background: '#F8FBFF', color: '#505050' };
+  }
 }
 </script>
