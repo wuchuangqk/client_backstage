@@ -49,20 +49,66 @@
       overflow: hidden;
     }
 
-    .svg-icon {
-      margin-right: 16px;
+    .icon-wrap {
+      width: 26px;
+      display: inline-block;
+      color: #979DAD;
     }
 
-    .sub-el-icon {
-      margin-right: 12px;
-      margin-left: -2px;
+    .el-menu {
+      margin: 0 30px;
+      border: none;
+    }
+
+    .el-menu--inline {
+      margin: 0;
+    }
+
+    // 标题
+    .submenu-title-noDropdown,
+    .el-submenu__title {
+      font-size: 16px;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: #282828;
+      padding: 0 14px !important;
     }
 
     .el-menu-item {
+      color: #878787;
+      font-size: 15px;
+    }
+
+    .submenu-title-noDropdown {
+      height: 50px;
+      line-height: 50px;
+      color: #282828;
+      font-size: 16px;
+    }
+
+    .el-menu-item,
+    .submenu-title-noDropdown {
+      transition: all 0.1s;
+      border-radius: 5px;
+
       &:hover {
         color: #367AFD;
       }
+
+      &.is-active {
+        background-color: #367AFD !important;
+        color: white;
+
+        .icon-wrap {
+          color: white;
+        }
+
+        &:hover {
+          color: white;
+        }
+      }
     }
+
 
     // .el-menu {
     //   border: none;

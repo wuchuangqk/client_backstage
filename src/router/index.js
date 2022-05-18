@@ -49,7 +49,7 @@ export const constantRoutes = [
   {
     path: '/project',
     component: Layout,
-    meta: { title: '项目申请', icon: 'dashboard' },
+    meta: { title: '项目申请', icon: 'chart' },
     alwaysShow: true,
     children: [
       {
@@ -69,12 +69,12 @@ export const constantRoutes = [
   {
     path: '/account',
     component: Layout,
-    meta: { title: '账号中心', icon: 'dashboard' },
+    meta: { title: '账号中心', icon: 'email' },
     alwaysShow: true,
     children: [
       {
         path: '',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/account/info'),
         name: 'account-info',
         meta: { title: '账号信息' }
       }
@@ -83,8 +83,9 @@ export const constantRoutes = [
   {
     path: '/data',
     component: Layout,
-    meta: { title: '数据列表', icon: 'dashboard' },
+    meta: { title: '数据列表', icon: 'form' },
     alwaysShow: true,
+    redirect: '/data/running',
     children: [
       {
         path: 'running',
@@ -94,7 +95,7 @@ export const constantRoutes = [
       },
       {
         path: 'pause',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/data/pause-list'),
         name: 'pause',
         meta: { title: '暂停项目' }
       }
@@ -103,7 +104,7 @@ export const constantRoutes = [
   {
     path: '/clear',
     component: Layout,
-    meta: { title: '结算申请', icon: 'dashboard' },
+    meta: { title: '结算申请', icon: 'guide' },
     alwaysShow: true,
     children: [
       {
@@ -121,7 +122,6 @@ export const constantRoutes = [
     ]
   }
 ]
-
 /**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
@@ -134,7 +134,7 @@ export const asyncRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes,
+  routes: constantRoutes.concat(asyncRoutes),
   mode: 'history'
 })
 

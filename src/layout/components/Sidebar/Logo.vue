@@ -2,27 +2,14 @@
   <div class="sidebar-logo-container">
     <img :src="logo" alt="" class="sidebar-logo">
     <p class="wellcome">欢迎来到蚂蚁后台</p>
-    <!-- <transition name="sidebarLogoFade">
-      <router-link class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo">
-        <h1 class="sidebar-title">蚂蚁后台</h1>
-      </router-link>
-    </transition> -->
   </div>
 </template>
 
 <script>
 export default {
   name: "SidebarLogo",
-  props: {
-    collapse: {
-      type: Boolean,
-      required: true,
-    },
-  },
   data() {
     return {
-      title: "Vue Element Admin",
       logo: require("@/assets/logo@2x.png"),
     };
   },

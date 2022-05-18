@@ -1,3 +1,4 @@
+
 // ? 日期格式化
 export const formatDate = (date, fmt) => {
   date = new Date(date);
@@ -62,3 +63,9 @@ export const getPermission = (key1, key2, key3) => {
   }
   return list3.length > 0 ? true : false
 }
+
+// 筛选出有权限的路由配置
+// export const filterPermissionRoutes = () => {
+//  const tree = localStorage.getItem('tree')
+//  const notFound = { path: '*', redirect: '/404', hidden: true }
+// }
