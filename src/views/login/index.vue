@@ -21,8 +21,9 @@ export default {
     // 登录
     doLogin() {
       dologin(this.doLoginParams).then(res => {
-        if (res.code === -1) return this.$message.error(res.message)
-
+        if (res.code === -1) return this.$message.error(res.msg)
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('tree', res.data.tree)
       })
     },
   },
