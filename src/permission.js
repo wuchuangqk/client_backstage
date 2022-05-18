@@ -13,7 +13,7 @@ router.beforeEach(async(to, from, next) => {
   if (true) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
-      next({ path: '/' })
+      next({ path: '/login' })
       NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
     } else {
       next()
