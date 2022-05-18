@@ -22,7 +22,7 @@
 <script>
 import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
-import { getRunningProject } from "@/utils/api";
+import { getPauseProject } from "@/utils/api";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -57,7 +57,7 @@ export default {
     exportListData() {},
     // 获取列表数据
     fetchData() {
-      getRunningProject(this.searchParams).then((res) => {
+      getPauseProject(this.searchParams).then((res) => {
         this.tableData = res.data.list;
         this.total = res.data.num;
         this.templateParams[0].data = res.data.select.map((v) => {

@@ -44,9 +44,20 @@ export default {
     toggleSideBar() {
       this.$store.dispatch("app/toggleSideBar");
     },
-    async logout() {
-      await this.$store.dispatch("user/logout");
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+    // 退出登录
+    logout() {
+      this.$confirm("确定退出吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          // 清除本地缓存
+          localStorage.removeItem("token");
+          localStorage.removeItem("tree");
+          this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+        })
+        .catch(() => {});
     },
   },
 };
@@ -63,6 +74,8 @@ export default {
 
   .breadcrumb-container {
     float: left;
+    display: flex;
+    align-items: center;
   }
 
   .errLog-container {

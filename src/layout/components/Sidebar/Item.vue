@@ -1,35 +1,45 @@
 <script>
 export default {
-  name: 'MenuItem',
+  name: "MenuItem",
   functional: true,
   props: {
     icon: {
       type: String,
-      default: ''
+      default: "",
     },
     title: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
   render(h, context) {
-    const { icon, title } = context.props
-    const vnodes = []
+    const { icon, title } = context.props;
+    const vnodes = [];
 
     if (icon) {
-      if (icon.includes('el-icon')) {
-        vnodes.push(<i class={[icon, 'sub-el-icon']} />)
+      if (icon.includes("el-icon")) {
+        const el = (
+          <span class={"icon-wrap"}>
+            <i class={[icon, "sub-el-icon"]} />
+          </span>
+        );
+        vnodes.push(el);
       } else {
-        vnodes.push(<svg-icon icon-class={icon}/>)
+        const el = (
+          <span class={"icon-wrap"}>
+            <svg-icon icon-class={icon} />
+          </span>
+        );
+        vnodes.push(el);
       }
     }
 
     if (title) {
-      vnodes.push(<span slot='title'>{(title)}</span>)
+      vnodes.push(<span slot="title">{title}</span>);
     }
-    return vnodes
-  }
-}
+    return vnodes;
+  },
+};
 </script>
 
 <style scoped>

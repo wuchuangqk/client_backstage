@@ -1,6 +1,6 @@
 <template>
-  <div :class="has-logo">
-    <logo />
+  <div class="has-logo">
+    <Logo />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu :default-active="activeMenu" :collapse="false" :unique-opened="false"
         :collapse-transition="false" mode="vertical">
@@ -37,8 +37,28 @@ export default {
       return !this.sidebar.opened;
     },
     permission_routes() {
-      return constantRoutes;
+      // const tree = JSON.parse(localStorage.getItem('tree'))
+      // return this.filterMenu(tree)
+      return constantRoutes
     },
   },
+  methods: {
+    // 筛选出菜单
+    filterMenu(arr) {
+      return arr.filter(v => {
+        if (v.is_menu === 2) {
+          if (v.son) {
+            v.son = this.filterMenu(v.son)
+          }
+          return true
+        }
+        return false
+      })
+    },
+    // 路由跳转
+    handleOpen(key) {
+      this.$router.push(key);
+    }
+  }
 };
 </script>
