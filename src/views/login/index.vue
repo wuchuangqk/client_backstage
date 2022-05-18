@@ -24,6 +24,7 @@ export default {
         if (res.code === -1) return this.$message.error(res.msg)
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('tree', res.data.tree)
+        this.$router.push('/')
       })
     },
   },
