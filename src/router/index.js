@@ -108,7 +108,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'clear-list',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/clear/clear_list'),
         name: 'running',
         meta: { title: '结算列表' }
       },
