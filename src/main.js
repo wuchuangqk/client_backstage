@@ -7,7 +7,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 import './utils/rem'
-import './icons' // icon
+import './icons'
 import './permission' // permission control
 Vue.use(Element, {
   size: 'small',
