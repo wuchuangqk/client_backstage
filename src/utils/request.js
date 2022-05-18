@@ -13,12 +13,12 @@ service.interceptors.request.use(
     return config
   },
 )
-
 service.interceptors.response.use(
   response => {
     const res = response.data
     return res
-  },
+  }, error => {
+    Message.error(error.response.data.message)
+  }
 )
-
 export default service
