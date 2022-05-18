@@ -8,8 +8,7 @@
   }
 
   .sidebar-container {
-    transition: width 0.28s;
-    width: $sideBarWidth !important;
+    width: $sideBarWidth  !important;
     background-color: white;
     height: 100%;
     position: fixed;
@@ -19,6 +18,9 @@
     left: 0;
     z-index: 1001;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 9px 0px rgba(198, 206, 215, 0.47);
 
     // reset element-ui css
     .horizontal-collapse-transition {
@@ -34,7 +36,7 @@
     }
 
     .el-scrollbar {
-      height: 100%;
+      flex: 1;
     }
 
     &.has-logo {
@@ -66,114 +68,45 @@
       border: none;
       height: 100%;
       width: 100% !important;
+      padding: 0 10px;
     }
 
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
       &:hover {
-        background-color: $menuHover !important;
+        background-color: white !important;
+      }
+      &.is-active {
+        background-color: #367AFD !important;
+        color: white;
       }
     }
 
-    .is-active>.el-submenu__title {
-      color: $subMenuActiveText !important;
-    }
+    // .is-active>.el-submenu__title {
+    //   color: $subMenuActiveText !important;
+    // }
 
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
-      min-width: $sideBarWidth !important;
-      background-color: $subMenuBg !important;
+      min-width: $sideBarWidth  !important;
+      background-color: white !important;
+      border-radius: 5px;
+      &.is-active {
+        background-color: #367AFD !important;
+        color: white;
+      }
 
       &:hover {
-        background-color: $subMenuHover !important;
+        background-color: #367AFD !important;
+        color: white;
       }
     }
   }
 
-  .hideSidebar {
-    .sidebar-container {
-      width: 54px !important;
-    }
-
-    .main-container {
-      margin-left: 54px;
-    }
-
-    .submenu-title-noDropdown {
-      padding: 0 !important;
-      position: relative;
-
-      .el-tooltip {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
-
-        .sub-el-icon {
-          margin-left: 19px;
-        }
-      }
-    }
-
-    .el-submenu {
-      overflow: hidden;
-
-      &>.el-submenu__title {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
-
-        .sub-el-icon {
-          margin-left: 19px;
-        }
-
-        .el-submenu__icon-arrow {
-          display: none;
-        }
-      }
-    }
-
-    .el-menu--collapse {
-      .el-submenu {
-        &>.el-submenu__title {
-          &>span {
-            height: 0;
-            width: 0;
-            overflow: hidden;
-            visibility: hidden;
-            display: inline-block;
-          }
-        }
-      }
-    }
-  }
 
   .el-menu--collapse .el-menu .el-submenu {
-    min-width: $sideBarWidth !important;
-  }
-
-  // mobile responsive
-  .mobile {
-    .main-container {
-      margin-left: 0px;
-    }
-
-    .sidebar-container {
-      transition: transform .28s;
-      width: $sideBarWidth !important;
-    }
-
-    &.hideSidebar {
-      .sidebar-container {
-        pointer-events: none;
-        transition-duration: 0.3s;
-        transform: translate3d(-$sideBarWidth, 0, 0);
-      }
-    }
+    min-width: $sideBarWidth  !important;
   }
 
   .withoutAnimation {
@@ -191,6 +124,7 @@
     .svg-icon {
       margin-right: 16px;
     }
+
     .sub-el-icon {
       margin-right: 12px;
       margin-left: -2px;
@@ -201,7 +135,7 @@
   .el-menu-item {
     &:hover {
       // you can use $subMenuHover
-      background-color: $menuHover !important;
+      background-color: #367AFD !important;
     }
   }
 
@@ -223,4 +157,15 @@
       border-radius: 20px;
     }
   }
+}
+
+.el-submenu__title {
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #282727;
+}
+.el-menu-item {
+  font-size: 18px;
+  font-family: PingFang SC;
 }

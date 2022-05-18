@@ -8,8 +8,9 @@
       <el-avatar size="large" :src="photo"></el-avatar>
       <el-dropdown trigger="hover">
         <span class="el-dropdown-link">
-          下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+          张三
         </span>
+        <i class="el-icon-arrow-down el-icon--right"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="logout">
             <i class="el-icon-switch-button"></i>
@@ -53,24 +54,12 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  height: 105px;
   overflow: hidden;
   position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
-  .hamburger-container {
-    line-height: 46px;
-    height: 100%;
-    float: left;
-    cursor: pointer;
-    transition: background 0.3s;
-    -webkit-tap-highlight-color: transparent;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
-  }
+  background: #fbfbfb;
+  display: flex;
+  align-items: center;
 
   .breadcrumb-container {
     float: left;
@@ -82,10 +71,23 @@ export default {
   }
 
   .right-menu {
-    float: right;
-    height: 100%;
-    line-height: 50px;
-
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    .el-dropdown-link {
+      font-size: 15px;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #686868;
+      margin: 0 0px 0 19px;
+    }
+    .el-icon-arrow-down {
+      margin-right: 30px;
+    }
+    .el-dropdown-link:hover,
+    .el-icon-arrow-down:hover {
+      cursor: pointer;
+    }
     &:focus {
       outline: none;
     }
