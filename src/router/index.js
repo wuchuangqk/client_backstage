@@ -120,6 +120,20 @@ export const constantRoutes = [
         meta: { title: '体现记录' }
       }
     ]
+  },
+  {
+    path: '/project_management',
+    component: Layout,
+    meta: { title: '项目管理', icon: 'guide' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'clear-list',
+        component: () => import('@/views/project_management/project_list'),
+        name: 'project_list',
+        meta: { title: '项目列表' }
+      }
+    ]
   }
 ]
 /**

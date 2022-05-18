@@ -24,7 +24,7 @@
         </el-form-item>
       </el-form>
       <div>
-        <el-button type="primary" v-for="(item, index) in functionParams" :key="index" @click="functionClick(item)">
+        <el-button type="primary" v-for="(item, index) in functionParams" :key="index" @click="clickBack(item)">
           {{ item.text }}</el-button>
       </div>
     </header>
@@ -66,8 +66,9 @@ export default {
       this.$emit("searchList", params);
     },
     // 按钮点击回调
-    functionClick(item) {
-      this.$emit("functionClick", item.callback);
+    clickBack(item) {
+      console.log('1')
+      this.$emit("clickBack", item.callback);
     },
   },
 };
