@@ -20,6 +20,38 @@
         </div>
         <div id="main" style="width: 1542px;height:430px;" />
       </div>
+      <div class="content_3">
+        <div class="content_3_1">
+          <div class="content_3_1_1">
+            <div class="content_3_1_1_1">审核中项目</div>
+            <div class="content_3_1_1_2">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option>近30天预估收益</el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="content_3_1_2">
+            <el-table :data="tableData" style="width:100%" border
+              :header-cell-style="{ background: '#E7E7E7', color: '#494747' }">
+              <el-table-column prop="name" label="日期" />
+              <el-table-column prop="type" label="姓名" />
+            </el-table>
+          </div>
+        </div>
+        <div class="content_3_1">
+          <div class="content_3_1_1">
+            <div class="content_3_1_1_1">进行中项目</div>
+            <div class="content_3_1_1_3">查看更多>></div>
+          </div>
+          <div class="content_3_1_2">
+            <el-table :data="tableData" style="width:100%" border
+              :header-cell-style="{ background: '#E7E7E7', color: '#494747' }">
+              <el-table-column prop="name" label="日期" />
+              <el-table-column prop="type" label="姓名" />
+            </el-table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +100,12 @@ export default {
             data: [220, 182, 191, 234, 290, 330, 310]
           },
         ]
-      }
+      },
+      tableData: [
+        { name: '龙珠', type: '审核中' },
+        { name: '龙珠', type: '审核中' },
+        { name: '龙珠', type: '审核中' },
+      ],
     };
   },
   mounted() {

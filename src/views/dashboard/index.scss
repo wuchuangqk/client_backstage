@@ -76,4 +76,44 @@
       }
     }
   }
+  .content_3 {
+    width: 19.8625rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    .content_3_1 {
+      width: 9.875rem;
+      height: 3.7375rem;
+      background: #ffffff;
+      .content_3_1_1 {
+        height: 0.8125rem;
+        background: #f8fbff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.2375rem;
+        .content_3_1_1_1 {
+          font-size: 0.2rem;
+          font-family: PingFang SC;
+          font-weight: bold;
+          color: #282828;
+          line-height: 1;
+        }
+        .content_3_1_1_3 {
+          font-size: 0.1875rem;
+          font-family: PingFang SC;
+          font-weight: 400;
+          color: #999999;
+          line-height: 1;
+          cursor: pointer;
+        }
+      }
+      .content_3_1_2 {
+        width: 9.45rem;
+        margin: 0 auto;
+        margin-top: 0.2875rem;
+      }
+    }
+  }
 }
