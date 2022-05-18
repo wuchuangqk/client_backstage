@@ -1,0 +1,60 @@
+.app-page {
+  margin: 10px;
+  padding: 20px;
+  background-color: white;
+}
+
+// 列表搜索栏
+.app-header {
+  margin-bottom: 16px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+
+  .el-form--inline .el-form-item {
+    margin-right: 16px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  .el-form {
+    margin-top: -16px;
+  }
+
+  .el-form-item--small.el-form-item,
+  .el-form-item {
+    margin-bottom: 0;
+    margin-top: 16px;
+  }
+
+  .search-handle {
+    flex-shrink: 0;
+  }
+}
+
+/* 列表分页 */
+.app-pagination-wrap {
+  margin-top: 16px;
+  text-align: right;
+}
+
+// .el-link::before {
+//   content: "";
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   height: 0;
+//   bottom: 0;
+//   border-bottom: 1px solid #1890ff;
+// }
+.el-link {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
+  & + .el-link {
+    margin-left: 20px;
+  }
+}

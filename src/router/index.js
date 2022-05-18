@@ -53,8 +53,14 @@ export const constantRoutes = [
     alwaysShow: true,
     children: [
       {
-        path: '',
-        component: () => import('@/views/dashboard/index'),
+        path: 'list',
+        component: () => import('@/views/project/apply-list'),
+        name: 'apply-list',
+        meta: { title: '项目申请' }
+      },
+      {
+        path: 'log',
+        component: () => import('@/views/project/apply-list'),
         name: 'apply-log',
         meta: { title: '申请记录' }
       }
@@ -82,7 +88,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'running',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/data/running-list'),
         name: 'running',
         meta: { title: '进行中项目' }
       },
