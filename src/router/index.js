@@ -91,7 +91,7 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard/index'),
         name: 'pause',
         meta: { title: '暂停项目' }
-      },
+      }
     ]
   },
   {
@@ -111,9 +111,9 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard/index'),
         name: 'clear-log',
         meta: { title: '体现记录' }
-      },
+      }
     ]
-  },
+  }
 ]
 
 /**
@@ -128,7 +128,8 @@ export const asyncRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes: constantRoutes,
+  mode: 'history'
 })
 
 const router = createRouter()
