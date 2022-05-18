@@ -6,34 +6,6 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-/* Router Modules */
-
-/**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
-    noCache: true                if set true, the page will no be cached(default is false)
-    affix: true                  if set true, the tag will affix in the tags-view
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
- */
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
 export const constantRoutes = [
   {
     path: '/redirect',
@@ -49,11 +21,6 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/auth-redirect'),
     hidden: true
   },
   {
@@ -75,8 +42,76 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'dashboard', affix: true }
       }
+    ]
+  },
+  {
+    path: '/project',
+    component: Layout,
+    meta: { title: '项目申请', icon: 'dashboard' },
+    alwaysShow: true,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/dashboard/index'),
+        name: 'apply-log',
+        meta: { title: '申请记录' }
+      }
+    ]
+  },
+  {
+    path: '/account',
+    component: Layout,
+    meta: { title: '账号中心', icon: 'dashboard' },
+    alwaysShow: true,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/dashboard/index'),
+        name: 'account-info',
+        meta: { title: '账号信息' }
+      }
+    ]
+  },
+  {
+    path: '/data',
+    component: Layout,
+    meta: { title: '数据列表', icon: 'dashboard' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'running',
+        component: () => import('@/views/dashboard/index'),
+        name: 'running',
+        meta: { title: '进行中项目' }
+      },
+      {
+        path: 'pause',
+        component: () => import('@/views/dashboard/index'),
+        name: 'pause',
+        meta: { title: '暂停项目' }
+      },
+    ]
+  },
+  {
+    path: '/clear',
+    component: Layout,
+    meta: { title: '结算申请', icon: 'dashboard' },
+    alwaysShow: true,
+    children: [
+      {
+        path: 'clear-list',
+        component: () => import('@/views/dashboard/index'),
+        name: 'running',
+        meta: { title: '结算列表' }
+      },
+      {
+        path: 'log',
+        component: () => import('@/views/dashboard/index'),
+        name: 'clear-log',
+        meta: { title: '体现记录' }
+      },
     ]
   },
 ]
