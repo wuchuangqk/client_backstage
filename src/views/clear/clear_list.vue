@@ -11,6 +11,10 @@
         <el-table-column prop="date" label="收款账号" />
         <el-table-column prop="date" label="状态" />
       </el-table>
+      <div class="content_1">
+        <el-pagination :page-sizes="[100, 200, 300, 400]" :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper" :total="400" background />
+      </div>
     </div>
   </div>
 </template>

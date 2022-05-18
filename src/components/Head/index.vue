@@ -75,7 +75,7 @@ export default {
 
 <style lang="scss" >
 .header {
-  height: 92px;
+  height: 1.15rem;
   padding: 0 .25rem;
   display: flex;
   justify-content: space-between;
