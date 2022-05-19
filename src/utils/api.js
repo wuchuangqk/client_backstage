@@ -88,3 +88,51 @@ export const saveProject = data => {
     data: qs.stringify(data),
   });
 };
+/* 用户列表 */
+export const getUserList = data => {
+  return request({
+    method: 'POST',
+    url: '/user/index',
+    data: qs.stringify(data),
+  });
+};
+/* 添加用户 */
+export const saveUser = data => {
+  return request({
+    method: 'POST',
+    url: '/user/useradd',
+    data: qs.stringify(data),
+  });
+};
+/* 修改用户 */
+export const updateUser = data => {
+  return request({
+    method: 'POST',
+    url: '/user/useredit',
+    data: qs.stringify(data),
+  });
+};
+/* 删除用户 */
+export const delUser = data => {
+  return request({
+    method: 'POST',
+    url: '/user/userdel',
+    data: qs.stringify(data),
+  });
+};
+/* 修改密码 */
+export const modifyPwd = data => {
+  return request({
+    method: 'POST',
+    url: 'user/changePass',
+    data: qs.stringify(data),
+  });
+};
+/* 获取和设置权限 */
+export const saveAccess = data => {
+  return request({
+    method: 'POST',
+    url: '/user/giveAccess',
+    data: qs.stringify(data),
+  });
+};

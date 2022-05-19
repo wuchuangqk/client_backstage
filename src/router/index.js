@@ -146,6 +146,13 @@ export const constantRoutes = [
         component: () => import('@/views/user_management/user_list'),
         name: 'user',
         meta: { title: '用户列表' }
+      },
+      {
+        path: 'node',
+        component: () => import('@/views/user_management/node'),
+        name: 'node',
+        meta: { title: '绑定节点' },
+        hidden: true
       }
     ]
   }
