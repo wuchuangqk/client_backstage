@@ -23,6 +23,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <ModifyPassword ref="password" />
   </div>
 </template>
 
@@ -30,11 +31,13 @@
 import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
+import ModifyPassword from './modify-password.vue'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
+    ModifyPassword
   },
   data() {
     return {
@@ -65,7 +68,7 @@ export default {
     },
     // 修改密码
     modifyPassword() {
-      
+      this.$refs.password.open()
     }
   },
 };

@@ -5,20 +5,20 @@
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column label="排序" prop="id" align="center" width="100"></el-table-column>
-      <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
-      <el-table-column label="推广类型" prop="" align="center"></el-table-column>
+      <el-table-column label="项目名称" prop="pid" align="center"></el-table-column>
+      <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
       <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
       <el-table-column label="项目流程" prop="" align="center">
         <template slot-scope="scope">
-          <el-link type="primary" :underline="false">图片</el-link>
-          <el-link type="primary" :underline="false">视频</el-link>
-          <el-link type="primary" :underline="false">文件</el-link>
+          <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.pic)">图片</el-link>
+          <el-link v-if="scope.row.video" type="primary" :underline="false" @click="open(scope.row.pic)">视频</el-link>
+          <el-link v-if="scope.row.file" type="primary" :underline="false" @click="open(scope.row.pic)">文件</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="申请状态" prop="jiesuan" align="center">
-        <template slot-scope="scope">
-          <el-link type="primary" :underline="false">申请项目</el-link>
-        </template>
+      <el-table-column label="申请状态" prop="status" align="center">
+        <!-- <template slot-scope="scope">
+          <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
+        </template> -->
       </el-table-column>
     </el-table>
     <footer class="app-pagination-wrap">
@@ -32,8 +32,7 @@
 <script>
 import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
-import { APPLY_STATE } from "@/utils/const";
-import { getUserProjectList } from "@/utils/api";
+import { getUserApplyList } from "@/utils/api";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -66,15 +65,18 @@ export default {
     exportListData() {},
     // 获取列表数据
     fetchData() {
-      getUserProjectList(this.searchParams).then((res) => {
-        this.tableData = res.data.list;
-        this.total = res.data.num;
+      getUserApplyList(this.searchParams).then((res) => {
+        this.tableData = res.data;
       });
     },
     // 执行搜索
     doSearch(params) {
       this.searchParams = Object.assign(this.searchParams, params);
       this.search();
+    },
+    // 在新窗口预览
+    open(url) {
+      window.open(url)
     },
   },
   mounted() {
@@ -85,6 +87,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .header {
+  padding: 0;
+}
 </style>
 
 

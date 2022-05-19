@@ -10,7 +10,7 @@
       </div>
       <div class="content_2">
         <div class="content_2_1">
-          <div class="content_2_1_1">近30天预估收益(远)</div>
+          <div class="content_2_1_1">近30天预估收益(元)</div>
           <div class="content_2_1_2">
             <el-select v-model="value" placeholder="请选择">
               <el-option>近30天预估收益</el-option>

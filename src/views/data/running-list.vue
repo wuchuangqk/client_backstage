@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     // 导出列表数据
-    exportListData() { },
+    exportListData() {},
     // 获取列表数据
     fetchData() {
       getRunningProject(this.searchParams).then((res) => {
@@ -82,6 +82,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .header {
+  padding: 0;
+}
 </style>
 
 

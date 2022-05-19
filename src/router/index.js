@@ -117,7 +117,7 @@ export const constantRoutes = [
         path: 'log',
         component: () => import('@/views/dashboard/index'),
         name: 'clear-log',
-        meta: { title: '体现记录' }
+        meta: { title: '提现记录' }
       }
     ]
   },
