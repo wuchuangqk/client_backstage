@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     // 导出列表数据
-    exportListData() {},
+    exportListData() { },
     // 获取列表数据
     fetchData() {
       getProjectList(this.searchParams).then((res) => {
