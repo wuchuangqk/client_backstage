@@ -15,7 +15,7 @@
           <el-link type="primary" :underline="false">文件</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="申请项目" prop="jiesuan" align="center">
+      <el-table-column label="申请状态" prop="jiesuan" align="center">
         <template slot-scope="scope">
           <el-link type="primary" :underline="false">申请项目</el-link>
         </template>
@@ -32,7 +32,8 @@
 <script>
 import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
-import { getProjectList, saveApply } from "@/utils/api";
+import { APPLY_STATE } from "@/utils/const";
+import { getUserProjectList } from "@/utils/api";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -49,17 +50,15 @@ export default {
           placeholder: "请输入项目名称",
           type: "input",
         },
-        // {
-        //   key: "date",
-        //   value: "",
-        //   label: "推广类型",
-        //   placeholder: "请选择",
-        //   type: "select",
-        //   data: PROMOTION_TYPE,
-        // },
       ],
       // 按钮参数
       functionParams: [{ text: "导出", callback: "exportListData" }],
+      applyState: [
+        { key: "未通过", value: 0, tag: "danger" },
+        { key: "正常", value: 1, tag: "success" },
+        { key: "待审核", value: 2, tag: "primary" },
+        { key: "暂停", value: 3, tag: "info" },
+      ],
     };
   },
   methods: {
@@ -67,7 +66,7 @@ export default {
     exportListData() {},
     // 获取列表数据
     fetchData() {
-      getProjectList(this.searchParams).then((res) => {
+      getUserProjectList(this.searchParams).then((res) => {
         this.tableData = res.data.list;
         this.total = res.data.num;
       });

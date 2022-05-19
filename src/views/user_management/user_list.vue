@@ -82,7 +82,7 @@
 
 <script>
 import { formatDate, getPermission } from '@/utils';
-import { getRoleList, getUserList, saveUser, delUser, updateUser } from '@/utils/api';
+import { getUserList, saveUser, delUser, updateUser } from '@/utils/api';
 export default {
   data() {
     return {
@@ -154,12 +154,6 @@ export default {
         this.getUserList();
       });
     },
-    // 角色列表
-    getRoleList() {
-      getRoleList({ num: 10000 }).then(res => {
-        this.roleList = res.data.list;
-      });
-    },
     // 添加管理员
     useradd() {
       saveUser(this.useraddParams).then(res => {
@@ -191,8 +185,6 @@ export default {
     this.initParams();
     // 管理员列表
     this.getUserList();
-    // 角色列表
-    this.getRoleList();
   },
 };
 </script>

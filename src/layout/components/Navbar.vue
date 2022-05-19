@@ -12,7 +12,11 @@
         </span>
         <i class="el-icon-arrow-down el-icon--right"></i>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="logout">
+          <el-dropdown-item @click.native="modifyPassword">
+            <i class="el-icon-lock"></i>
+            <span>修改密码</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided @click.native="logout">
             <i class="el-icon-switch-button"></i>
             <span>退出系统</span>
           </el-dropdown-item>
@@ -59,6 +63,10 @@ export default {
         })
         .catch(() => {});
     },
+    // 修改密码
+    modifyPassword() {
+      
+    }
   },
 };
 </script>

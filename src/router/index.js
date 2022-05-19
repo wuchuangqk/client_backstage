@@ -60,7 +60,7 @@ export const constantRoutes = [
       },
       {
         path: 'log',
-        component: () => import('@/views/project/apply-list'),
+        component: () => import('@/views/project/apply-log'),
         name: 'apply-log',
         meta: { title: '申请记录' }
       }

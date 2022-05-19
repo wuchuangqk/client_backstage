@@ -4,3 +4,10 @@ export const PROMOTION_TYPE = [
   { key: '地推', value: 2 },
   { key: '不限', value: 3 },
 ]
+// 申请状态
+export const APPLY_STATE = [
+  { key: '未通过', value: 0 },
+  { key: '正常', value: 1 },
+  { key: '待审核', value: 2 },
+  { key: '暂停', value: 3 },
+]
