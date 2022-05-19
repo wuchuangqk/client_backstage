@@ -120,7 +120,7 @@ export default {
         num: 10
       },
       tableData: [],
-      total: '',
+      total: 0,
       functionParams: [
         { text: "添加项目", callback: "saveProjectPre" }
       ],
