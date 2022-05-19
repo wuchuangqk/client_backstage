@@ -27,6 +27,7 @@
         <el-button type="primary" v-for="(item, index) in functionParams" :key="index" @click="clickBack(item)">
           {{ item.text }}</el-button>
       </div>
+      <slot></slot>
     </header>
   </div>
 </template>

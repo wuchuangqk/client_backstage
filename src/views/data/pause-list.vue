@@ -1,7 +1,9 @@
 <template>
   <div class="app-page">
 
-    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" />
+    <Head :searchParams="templateParams" @searchList="doSearch">
+      <el-button type="primary" :loading="exportLoading" @click="exportListData">导出</el-button>
+    </Head>
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column label="日期" prop="date" align="center"></el-table-column>
@@ -23,6 +25,7 @@
 import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
 import { getPauseProject } from "@/utils/api";
+import excel from "@/vendor/Export2Excel";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -48,13 +51,32 @@ export default {
         //   type: "date",
         // },
       ],
-      // 按钮参数
-      functionParams: [{ text: "导出", callback: "exportListData" }],
+      // 导出加载中状态
+      exportLoading: false,
     };
   },
   methods: {
     // 导出列表数据
-    exportListData() { },
+    exportListData() {
+      this.exportLoading = true;
+      getPauseProject({ page: 1, num: 99999 }).then((res) => {
+        excel.exportArrayToExcel({
+          title: [
+            "日期",
+            "项目名称",
+            "数据",
+            "次留",
+            "单价（元）",
+            "结算金额（元）",
+          ],
+          key: ["date", "upid", "data", "retention", "price", "gmv"],
+          data: res.data.list,
+          autoWidth: true,
+          filename: "暂停项目",
+        });
+        this.exportLoading = false;
+      });
+    },
     // 获取列表数据
     fetchData() {
       getPauseProject(this.searchParams).then((res) => {

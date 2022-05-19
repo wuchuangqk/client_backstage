@@ -16,6 +16,7 @@
       </el-table-column>
       <el-table-column label="申请项目" prop="jiesuan" align="center">
         <template slot-scope="scope">
+          <!-- TODO 申请成功显示状态 -->
           <el-link type="primary" :underline="false" @click="doApply(scope.row)">申请项目</el-link>
         </template>
       </el-table-column>
@@ -86,7 +87,7 @@ export default {
         .then(() => {
           saveApply({ id: row.id }).then((res) => {
             if (res.code != 1) return this.$message.error(res.msg);
-            this.$message.success("申请成功");
+            this.$message.success(res.msg);
             this.fetchData();
           });
         })
