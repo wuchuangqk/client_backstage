@@ -138,6 +138,12 @@ export const constantRoutes = [
         component: () => import('@/views/project_management/application_list'),
         name: 'application_list',
         meta: { title: '申请列表' }
+      },
+      {
+        path: 'user-project-list',
+        component: () => import('@/views/project_management/user_project_list'),
+        name: 'user_project_list',
+        meta: { title: '用户项目列表' }
       }
     ]
   },
