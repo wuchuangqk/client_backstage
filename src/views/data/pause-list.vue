@@ -1,9 +1,7 @@
 <template>
   <div class="app-page">
 
-    <Head :searchParams="templateParams" @searchList="doSearch">
-      <el-button type="primary" :loading="exportLoading" @click="exportListData">导出</el-button>
-    </Head>
+    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column label="日期" prop="date" align="center"></el-table-column>
@@ -43,22 +41,18 @@ export default {
           type: "select",
           data: [],
         },
-        // {
-        //   key: "date",
-        //   value: "",
-        //   label: "推广日期",
-        //   placeholder: "请选择",
-        //   type: "date",
-        // },
       ],
-      // 导出加载中状态
-      exportLoading: false,
+      // 按钮参数
+      functionParams: [{ text: "导出", callback: "exportListData", loading: false }],
     };
   },
   methods: {
+    clickBack(fn) {
+      this[fn]()
+    },
     // 导出列表数据
     exportListData() {
-      this.exportLoading = true;
+      this.functionParams[0].loading = true;
       getPauseProject({ page: 1, num: 99999 }).then((res) => {
         excel.exportArrayToExcel({
           title: [
@@ -74,7 +68,7 @@ export default {
           autoWidth: true,
           filename: "暂停项目",
         });
-        this.exportLoading = false;
+        this.functionParams[0].loading = false;
       });
     },
     // 获取列表数据
