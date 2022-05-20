@@ -152,3 +152,11 @@ export const userApplyPay = data => {
     data: qs.stringify(data),
   });
 };
+/* 用户申请结算列表 */
+export const userPayList = data => {
+  return request({
+    method: 'POST',
+    url: '/pay/user_pay_list',
+    data: qs.stringify(data),
+  });
+};
