@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import { dologin } from '@/utils/api';
+import { dologin, saveUserInfo } from '@/utils/api';
 export default {
   data() {
     return {
@@ -24,6 +24,10 @@ export default {
         if (res.code === -1) return this.$message.error(res.msg)
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('tree', JSON.stringify(res.data.tree))
+        localStorage.setItem('user', JSON.stringify(res.data.user))
+        saveUserInfo({ type: 'get' }).then(res => {
+          this.$store.dispatch('user/updateUserInfo', res.data)
+        })
         this.$router.push('/')
       })
     },

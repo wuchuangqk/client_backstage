@@ -118,7 +118,13 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard/index'),
         name: 'clear-log',
         meta: { title: '提现记录' }
-      }
+      },
+      {
+        path: 'user-list',
+        component: () => import('@/views/clear/manager_clear_list'),
+        name: 'clear-log',
+        meta: { title: '用户结算申请' }
+      },
     ]
   },
   {

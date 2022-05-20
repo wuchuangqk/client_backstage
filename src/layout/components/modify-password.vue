@@ -30,7 +30,6 @@ export default {
   data() {
     return {
       formData: {
-        user_id: null, // 用户id
         old_password: null, // 原密码
         new_password: null, // 新密码
         re_pwd: null, // 确认新密码

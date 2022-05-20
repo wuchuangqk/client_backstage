@@ -41,11 +41,6 @@
         <el-form-item label="账号来源">
           <el-input v-model="userItem.source" />
         </el-form-item>
-        <!-- <el-form-item label="当前角色">
-          <el-select v-model="userItem.role_id" placeholder="请选择角色">
-            <el-option v-for="(item, index) in roleList" :key="index" :value="item.id" :label="item.role_name" />
-          </el-select>
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>

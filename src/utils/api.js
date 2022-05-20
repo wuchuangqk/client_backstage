@@ -152,3 +152,27 @@ export const userApplyPay = data => {
     data: qs.stringify(data),
   });
 };
+/* 管理员查看用户结算列表 */
+export const getPayListOfManager = data => {
+  return request({
+    method: 'POST',
+    url: '/pay/user_pay_list',
+    data: qs.stringify(data),
+  });
+};
+/* 管理员结算 */
+export const doPay = data => {
+  return request({
+    method: 'POST',
+    url: '/pay/pay',
+    data: qs.stringify(data),
+  });
+};
+/* 用户信息 */
+export const saveUserInfo = data => {
+  return request({
+    method: 'POST',
+    url: '/user/user_info',
+    data: qs.stringify(data),
+  });
+};
