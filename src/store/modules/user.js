@@ -6,7 +6,8 @@ const state = {
   name: '',
   avatar: '',
   introduction: '',
-  roles: []
+  roles: [],
+  userInfo: {},
 }
 
 const mutations = {
@@ -24,6 +25,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_USER_INFO: (state, userInfo) => {
+    state.userInfo = userInfo
   }
 }
 
@@ -92,7 +96,12 @@ const actions = {
 
     // reset visited views and cached views
     dispatch('tagsView/delAllViews', null, { root: true })
-  }
+  },
+
+  // 更新用户信息
+  updateUserInfo({ commit }, userInfo) {
+    commit('SET_USER_INFO', userInfo)
+  },
 }
 
 export default {

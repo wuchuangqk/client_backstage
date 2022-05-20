@@ -5,12 +5,14 @@
     <div class="right-menu">
       <template v-if="device!=='mobile'">
       </template>
-      <el-avatar size="large" :src="photo"></el-avatar>
       <el-dropdown trigger="hover">
-        <span class="el-dropdown-link">
-          张三
-        </span>
-        <i class="el-icon-arrow-down el-icon--right"></i>
+        <div class="app-flex-center">
+          <el-avatar size="large" :src="userInfo.photo"></el-avatar>
+          <span class="el-dropdown-link">
+            {{ userInfo.name }}
+          </span>
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="modifyPassword">
             <i class="el-icon-lock"></i>
@@ -31,21 +33,36 @@
 import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
-import ModifyPassword from './modify-password.vue'
+import ModifyPassword from "./modify-password.vue";
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
-    ModifyPassword
+    ModifyPassword,
   },
   data() {
-    return {
-      photo: require("@/assets/401_images/401.gif"),
-    };
+    return {};
   },
   computed: {
     ...mapGetters(["sidebar", "avatar", "device"]),
+    // 用户头像和姓名
+    userInfo() {
+      const user = {
+        photo: "",
+        name: "",
+      };
+      let info = this.$store.state.user.userInfo
+      // 判断是否刷新了
+      if (Object.keys(info).length === 0) {
+        info = JSON.parse(localStorage.getItem('user'))
+        this.$store.dispatch('user/updateUserInfo', info)
+      }
+      const { head, user_name, real_name } = info;
+      user.photo = head || require("@/assets/401_images/401.gif");
+      user.name = real_name || user_name;
+      return user;
+    },
   },
   methods: {
     toggleSideBar() {
@@ -68,15 +85,15 @@ export default {
     },
     // 修改密码
     modifyPassword() {
-      this.$refs.password.open()
-    }
+      this.$refs.password.open();
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-  height: 105px;
+  height: 70px;
   overflow: hidden;
   position: relative;
   background: #fbfbfb;

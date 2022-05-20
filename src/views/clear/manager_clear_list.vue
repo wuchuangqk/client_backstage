@@ -1,18 +1,22 @@
 <template>
   <div class="app-page">
 
-    <Head :searchParams="templateParams" @searchList="doSearch" />
+    <!-- <Head :searchParams="templateParams" @searchList="doSearch" /> -->
     <el-table :data="tableData" style="width: 100%" border
       :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
       <el-table-column type="index" label="排序" width="50" align="center" />
-      <el-table-column prop="title" label="结算项目" align="center" />
-      <el-table-column prop="pay" label="已结算金额" align="center" />
-      <el-table-column prop="unpay" label="未结算金额" align="center" />
-      <el-table-column prop="nopay" label="未通过金额" align="center" />
-      <el-table-column prop="pay_account" label="收款账号" align="center" />
-      <el-table-column label="操作" prop="jiesuan" align="center">
+      <el-table-column prop="pay_account" label="收款账号" />
+      <el-table-column prop="unpay" label="未结算金额" />
+      <el-table-column prop="status" label="状态">
         <template slot-scope="scope">
-          <el-link v-if="scope.row.unpay > 0" type="primary" :underline="false" @click="doApply(scope.row)">申请结算</el-link>
+          <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" prop="jiesuan" align="center" width="80">
+        <!-- 状态未未结算时，可以结算或拒绝 -->
+        <template slot-scope="scope" v-if="scope.row.status === 0">
+          <el-link type="primary" :underline="false" @click="doApply(scope.row, 1)">结算</el-link>
+          <el-link type="primary" :underline="false" @click="doApply(scope.row, 2)">拒绝</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -26,7 +30,7 @@
 
 <script>
 import Head from "../../components/Head/index.vue";
-import { getUserPayList, userApplyPay } from "@/utils/api";
+import { getPayListOfManager, doPay } from "@/utils/api";
 import listMixin from "@/mixins/listMixin";
 import { CLEAR_STATE } from "@/utils/const";
 export default {
@@ -45,7 +49,7 @@ export default {
           label: "处理状态",
           value: "",
           placeholder: "所有状态",
-          data: CLEAR_STATE
+          data: CLEAR_STATE,
         },
       ],
     };
@@ -54,7 +58,7 @@ export default {
   methods: {
     // 获取列表数据
     fetchData() {
-      getUserPayList(this.searchParams).then((res) => {
+      getPayListOfManager(this.searchParams).then((res) => {
         res.data.list.forEach((v) => {
           v.stateTag = "";
           v.stateText = "";
@@ -73,15 +77,15 @@ export default {
       this.searchParams = Object.assign(this.searchParams, params);
       this.search();
     },
-    // 申请项目
-    doApply(row) {
-      this.$confirm("确定申请吗", "提示", {
+    // 管理员结算或拒绝项目
+    doApply(row, status) {
+      this.$confirm(`确定${status === 1 ? '结算' :  '拒绝'}吗`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          userApplyPay({ upid: row.id }).then((res) => {
+          doPay({ id: row.id, status }).then((res) => {
             if (res.code != 1) return this.$message.error(res.msg);
             this.$message.success(res.msg);
             this.fetchData();
