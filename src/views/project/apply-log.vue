@@ -16,9 +16,9 @@
         </template>
       </el-table-column>
       <el-table-column label="申请状态" prop="status" align="center">
-        <!-- <template slot-scope="scope">
+        <template slot-scope="scope">
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
-        </template> -->
+        </template>
       </el-table-column>
     </el-table>
     <footer class="app-pagination-wrap">
@@ -33,6 +33,7 @@
 import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
 import { getUserApplyList } from "@/utils/api";
+import { APPLY_STATE } from "@/utils/const";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -52,12 +53,7 @@ export default {
       ],
       // 按钮参数
       functionParams: [{ text: "导出", callback: "exportListData" }],
-      applyState: [
-        { key: "未通过", value: 0, tag: "danger" },
-        { key: "正常", value: 1, tag: "success" },
-        { key: "待审核", value: 2, tag: "primary" },
-        { key: "暂停", value: 3, tag: "info" },
-      ],
+      applyState: APPLY_STATE
     };
   },
   methods: {
@@ -66,6 +62,15 @@ export default {
     // 获取列表数据
     fetchData() {
       getUserApplyList(this.searchParams).then((res) => {
+        res.data.forEach(v => {
+          v.stateTag = ''
+          v.stateText = ''
+          const item = this.applyState.find(val => val.value === v.status)
+          if (item) {
+            v.stateTag = item.tag
+            v.stateText = item.key
+          }
+        })
         this.tableData = res.data;
       });
     },

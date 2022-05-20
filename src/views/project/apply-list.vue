@@ -3,7 +3,7 @@
     <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
-      <el-table-column label="排序" prop="id" align="center" width="100"></el-table-column>
+      <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
       <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
@@ -16,7 +16,6 @@
       </el-table-column>
       <el-table-column label="申请项目" prop="jiesuan" align="center">
         <template slot-scope="scope">
-          <!-- TODO 申请成功显示状态 -->
           <el-link type="primary" :underline="false" @click="doApply(scope.row)">申请项目</el-link>
         </template>
       </el-table-column>

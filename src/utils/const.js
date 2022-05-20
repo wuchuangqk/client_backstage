@@ -6,8 +6,8 @@ export const PROMOTION_TYPE = [
 ]
 // 申请状态
 export const APPLY_STATE = [
-  { key: '未通过', value: 0 },
-  { key: '正常', value: 1 },
-  { key: '待审核', value: 2 },
-  { key: '暂停', value: 3 },
+  { key: "未通过", value: 0, tag: "danger" },
+  { key: "正常", value: 1, tag: "success" },
+  { key: "待审核", value: 2, tag: "primary" },
+  { key: "暂停", value: 3, tag: "info" },
 ]
