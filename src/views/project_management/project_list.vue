@@ -151,13 +151,16 @@ export default {
       this[methodName]()
     },
     picSuccess(response) {
-      this.saveParams.pic = `http://nad.bdhuoke.com/business_admin/${response.data}`
+      this.saveParams.pic = `http://nad.bdhuoke.com/${response.data}`
+      this.updateParams.pic = `http://nad.bdhuoke.com/${response.data}`
     },
     fileSuccess(response) {
-      this.saveParams.file = `http://nad.bdhuoke.com/business_admin/${response.data}`
+      this.saveParams.file = `http://nad.bdhuoke.com/${response.data}`
+      this.updateParams.file = `http://nad.bdhuoke.com/${response.data}`
     },
     videoSuccess(response) {
-      this.saveParams.video = `http://nad.bdhuoke.com/business_admin/${response.data}`
+      this.saveParams.video = `http://nad.bdhuoke.com/${response.data}`
+      this.updateParams.video = `http://nad.bdhuoke.com/${response.data}`
     },
     saveProjectPre() {
       this.dialogFormVisible = true

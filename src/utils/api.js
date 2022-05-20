@@ -136,3 +136,19 @@ export const saveAccess = data => {
     data: qs.stringify(data),
   });
 };
+/* 获取用户结算申请列表 */
+export const getUserPayList = data => {
+  return request({
+    method: 'POST',
+    url: '/pay/list',
+    data: qs.stringify(data),
+  });
+};
+/* 用户申请结算 */
+export const userApplyPay = data => {
+  return request({
+    method: 'POST',
+    url: '/pay/pay_apply',
+    data: qs.stringify(data),
+  });
+};

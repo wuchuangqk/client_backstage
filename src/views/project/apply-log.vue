@@ -1,11 +1,11 @@
 <template>
   <div class="app-page">
 
-    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" />
+    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
-      <el-table-column label="排序" prop="id" align="center" width="100"></el-table-column>
-      <el-table-column label="项目名称" prop="pid" align="center"></el-table-column>
+     <el-table-column type="index" label="排序" width="50" align="center" />
+      <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
       <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
       <el-table-column label="项目流程" prop="" align="center">
@@ -34,6 +34,7 @@ import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
 import { getUserApplyList } from "@/utils/api";
 import { APPLY_STATE } from "@/utils/const";
+import excel from "@/vendor/Export2Excel";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -44,7 +45,7 @@ export default {
       // 搜索参数
       templateParams: [
         {
-          key: "name",
+          key: "select",
           value: "",
           label: "项目名称",
           placeholder: "请输入项目名称",
@@ -52,13 +53,40 @@ export default {
         },
       ],
       // 按钮参数
-      functionParams: [{ text: "导出", callback: "exportListData" }],
+      functionParams: [{ text: "导出", callback: "exportListData", loading: false }],
       applyState: APPLY_STATE
     };
   },
   methods: {
+    clickBack(fn) {
+      this[fn]()
+    },
     // 导出列表数据
-    exportListData() {},
+    exportListData() {
+      this.functionParams[0].loading = true;
+      getUserApplyList({ page: 1, num: 99999 }).then((res) => {
+        res.data.forEach(v => {
+          v.stateText = ''
+          const item = this.applyState.find(val => val.value === v.status)
+          if (item) {
+            v.stateText = item.key
+          }
+        })
+        excel.exportArrayToExcel({
+          title: [
+            "项目名称",
+            "推广类型",
+            "单价（元）",
+            "申请状态",
+          ],
+          key: ["title", "promotion", "price", "stateText"],
+          data: res.data,
+          autoWidth: true,
+          filename: "申请记录",
+        });
+        this.functionParams[0].loading = false;
+      });
+    },
     // 获取列表数据
     fetchData() {
       getUserApplyList(this.searchParams).then((res) => {
