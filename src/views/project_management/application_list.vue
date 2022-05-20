@@ -4,8 +4,8 @@
       <el-table :data="tableData" style="width: 100%" border
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
         <el-table-column type="index" label="排序" width="50" align="center" />
-        <el-table-column prop="add_user" label="申请人" />
-        <el-table-column prop="title" label="项目名称" />
+        <el-table-column prop="user_name" label="申请人" />
+        <el-table-column prop="pid" label="项目名称" />
         <el-table-column prop="promotion" label="推广方式" width="80" align="center" />
         <el-table-column prop="price" label="项目单价" align="right" />
         <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
@@ -23,6 +23,10 @@
           </template>
         </el-table-column>
       </el-table>
+      <div class="content_1">
+        <el-pagination :page-size="10" layout="total, prev, pager, next, jumper" :total="total" background
+          @current-change="currentChange" />
+      </div>
     </div>
     <el-dialog title="审批项目" :visible.sync="examineDialog">
       <el-form :model="examineParams" label-position="left" label-width="100px">
@@ -50,7 +54,7 @@
 </template>
 
 <script>
-import { examine, getUserApplyList } from '@/utils/api'
+import { examine, getUserProjectList } from '@/utils/api'
 export default {
   data() {
     return {
@@ -63,8 +67,9 @@ export default {
   },
   methods: {
     getUserApplyList() {
-      getUserApplyList(this.params).then(res => {
-        this.tableData = res.data
+      getUserProjectList(this.params).then(res => {
+        this.tableData = res.data.list
+        this.total = res.data.num
       })
     },
     examine() {
@@ -81,6 +86,10 @@ export default {
     },
     uploadSuccess(res) {
       this.examineParams.code_img = `http://nad.bdhuoke.com/business_admin/${res.data}`
+    },
+    currentChange(val) {
+      this.params.page = val
+      this.getUserApplyList()
     },
   },
   mounted() {

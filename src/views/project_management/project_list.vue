@@ -24,7 +24,8 @@
         </el-table-column>
       </el-table>
       <div class="content_1">
-        <el-pagination :page-size="10" layout="total, prev, pager, next, jumper" :total="total" background />
+        <el-pagination :page-size="10" layout="total, prev, pager, next, jumper" :total="total" background
+          @current-change="currentChange" />
       </div>
     </div>
     <el-dialog title="添加项目" :visible.sync="dialogFormVisible">
@@ -180,7 +181,11 @@ export default {
     searchList(params) {
       this.listParams.title = params.title
       this.getProjectList()
-    }
+    },
+    currentChange(page) {
+      this.listParams.page = page
+      this.getProjectList()
+    },
   },
   mounted() {
     this.promotion = PROMOTION_TYPE

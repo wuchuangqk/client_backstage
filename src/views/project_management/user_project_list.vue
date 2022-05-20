@@ -6,12 +6,18 @@
         <el-table-column type="index" label="排序" width="50" align="center" />
         <el-table-column prop="pid" label="项目名" />
         <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
+        <el-table-column prop="user_name" label="做单人名称" />
         <el-table-column label="项目状态" width="80" align="center">
           <template slot-scope="s">
             <el-tag type="danger" v-if="s.row.status == 0">异常</el-tag>
             <el-tag type="success" v-if="s.row.status == 1">正常</el-tag>
             <el-tag v-if="s.row.status == 2">待审核</el-tag>
             <el-tag type="warning" v-if="s.row.status == 3">暂停</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="审批" width="80" align="center">
+          <template slot-scope="s">
+            <el-button type="text">添加数据</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -28,7 +34,8 @@ export default {
       total: "",
       params: {
         page: 1,
-        num: 10
+        num: 10,
+        status: 1,
       },
     }
   },
