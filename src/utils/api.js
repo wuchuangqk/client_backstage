@@ -176,3 +176,11 @@ export const saveUserInfo = data => {
     data: qs.stringify(data),
   });
 };
+/* 发布消息 */
+export const saveMessage = data => {
+  return request({
+    method: 'POST',
+    url: '/message/add',
+    data: qs.stringify(data),
+  });
+};

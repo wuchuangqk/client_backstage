@@ -171,6 +171,12 @@ export const constantRoutes = [
         name: 'node',
         meta: { title: '绑定节点' },
         hidden: true
+      },
+      {
+        path: 'message',
+        component: () => import('@/views/user_management/message'),
+        name: 'message',
+        meta: { title: '发布消息' },
       }
     ]
   }

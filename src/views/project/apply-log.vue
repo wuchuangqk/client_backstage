@@ -65,7 +65,7 @@ export default {
     exportListData() {
       this.functionParams[0].loading = true;
       getUserApplyList({ page: 1, num: 99999 }).then((res) => {
-        res.data.forEach(v => {
+        res.data.list.forEach(v => {
           v.stateText = ''
           const item = this.applyState.find(val => val.value === v.status)
           if (item) {
@@ -90,7 +90,7 @@ export default {
     // 获取列表数据
     fetchData() {
       getUserApplyList(this.searchParams).then((res) => {
-        res.data.forEach(v => {
+        res.data.list.forEach(v => {
           v.stateTag = ''
           v.stateText = ''
           const item = this.applyState.find(val => val.value === v.status)
@@ -99,7 +99,8 @@ export default {
             v.stateText = item.key
           }
         })
-        this.tableData = res.data;
+        this.tableData = res.data.list;
+        this.total = res.data.num;
       });
     },
     // 执行搜索
