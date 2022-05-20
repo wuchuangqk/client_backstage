@@ -42,14 +42,14 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
+        meta: { title: '首页', icon: 'home', affix: true }
       }
     ]
   },
   {
     path: '/project',
     component: Layout,
-    meta: { title: '项目申请', icon: 'chart' },
+    meta: { title: '项目申请', icon: 'project_user' },
     alwaysShow: true,
     children: [
       {
@@ -69,7 +69,7 @@ export const constantRoutes = [
   {
     path: '/account',
     component: Layout,
-    meta: { title: '账号中心', icon: 'email' },
+    meta: { title: '账号中心', icon: 'user' },
     alwaysShow: true,
     children: [
       {
@@ -83,7 +83,7 @@ export const constantRoutes = [
   {
     path: '/data',
     component: Layout,
-    meta: { title: '数据列表', icon: 'form' },
+    meta: { title: '数据列表', icon: 'data' },
     alwaysShow: true,
     redirect: '/data/running',
     children: [
@@ -104,7 +104,7 @@ export const constantRoutes = [
   {
     path: '/clear',
     component: Layout,
-    meta: { title: '结算申请', icon: 'guide' },
+    meta: { title: '结算申请', icon: 'jiesuan' },
     alwaysShow: true,
     children: [
       {
@@ -124,7 +124,7 @@ export const constantRoutes = [
   {
     path: '/project_management',
     component: Layout,
-    meta: { title: '项目管理', icon: 'guide' },
+    meta: { title: '项目管理', icon: 'project_manager' },
     alwaysShow: true,
     children: [
       {
@@ -144,7 +144,7 @@ export const constantRoutes = [
   {
     path: '/user_management',
     component: Layout,
-    meta: { title: '用户管理', icon: 'guide' },
+    meta: { title: '用户管理', icon: 'user' },
     alwaysShow: true,
     children: [
       {
