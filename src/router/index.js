@@ -63,6 +63,7 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '项目申请', icon: 'project_user' },
     alwaysShow: true,
+    name: 'apply',
     children: [
       {
         path: 'list',
