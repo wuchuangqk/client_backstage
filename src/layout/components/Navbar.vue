@@ -75,7 +75,7 @@ export default {
         this.$store.dispatch("user/updateUserInfo", info);
       }
       const { head, user_name, real_name, id } = info;
-      user.photo = head || require("@/assets/401_images/401.gif");
+      user.photo = head || require("@/assets/img/default.png");
       user.name = real_name || user_name;
       user.id = id;
       return user;
@@ -142,7 +142,7 @@ export default {
   },
   mounted() {
     // 轮询未读消息数量
-    // this.pull();
+    this.pull();
   },
 };
 </script>

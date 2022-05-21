@@ -39,8 +39,9 @@ export default {
     },
     permission_routes() {
       const tree = JSON.parse(localStorage.getItem('tree'))
-      return this.filterMenu(constantRoutes, this.getNameFromTree(tree))
-      // return constantRoutes
+      const names = []
+      this.getNameFromTree(tree, names)
+      return this.filterMenu(constantRoutes, names)
     },
   },
   methods: {

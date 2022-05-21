@@ -80,9 +80,9 @@ export default {
       topData: [
         { value: 0, key: "进行中项目", field: "runing_project" },
         { value: 0, key: "审核中项目", field: "examine_project" },
-        { value: 0, key: "预估收益", field: "profit_30" },
-        { value: 0, key: "结算收益", field: "pay_30" },
-        { value: 0, key: "未结算收益", field: "unpay" },
+        { value: 0, key: "预估收益(元)", field: "profit_30" },
+        { value: 0, key: "结算收益(元)", field: "pay_30" },
+        { value: 0, key: "未结算收益(元)", field: "unpay" },
       ],
       option: {
         tooltip: {
@@ -127,6 +127,9 @@ export default {
       getIndex().then((res) => {
         this.topData.forEach((v) => {
           v.value = res.data[v.field];
+          if (['profit_30', 'pay_30', 'unpay'].includes(v.field)) {
+            v.value = v.value.toFixed(2)
+          }
         });
         res.data.list.forEach((v) => {
           this.option.xAxis.data.push(v.date);

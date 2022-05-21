@@ -160,9 +160,9 @@ export default {
     },
     // 初始化参数
     initParams() {
-      this.addPermission = getPermission('用户管理', '管理员管理', '添加管理员');
-      this.editPermission = getPermission('用户管理', '管理员管理', '编辑管理员');
-      this.delPermission = getPermission('用户管理', '管理员管理', '删除管理员');
+      this.addPermission = getPermission('用户管理', '用户列表', '添加管理员');
+      this.editPermission = getPermission('用户管理', '用户列表', '编辑管理员');
+      this.delPermission = getPermission('用户管理', '用户列表', '删除管理员');
     },
     // 绑定节点
     bindNode({ id, rule }) {

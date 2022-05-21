@@ -138,7 +138,7 @@ export const constantRoutes = [
       {
         path: 'user-list',
         component: () => import('@/views/clear/manager_clear_list'),
-        name: 'clear-log',
+        name: 'clear-log2',
         meta: { title: '用户结算申请' }
       },
     ]
