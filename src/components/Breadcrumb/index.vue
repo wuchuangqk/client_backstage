@@ -89,7 +89,7 @@ export default {
   .no-redirect {
     color: #505050;
     cursor: text;
-    font-weight: bold;
+    // font-weight: bold;
   }
 }
 .link {

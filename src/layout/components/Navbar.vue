@@ -57,6 +57,8 @@ export default {
       downloadLoading: false,
       // 下载icon
       downloadIcon: require("@/assets/img/xaizai@2x.png"),
+      // 定时器
+      pullTimer: null,
     };
   },
   computed: {
@@ -114,9 +116,9 @@ export default {
     },
     // 轮询未读消息数量
     pull() {
-      // 时间间隔：30秒
-      const interval = 30 * 1000;
-      setInterval(() => {
+      // 时间间隔：1分钟
+      const interval = 1 * 60 * 1000;
+      this.pullTimer = setInterval(() => {
         getUnReadMsg().then((res) => {
           this.$store.dispatch("app/setMsgCount", (res.data || []).length);
         });
@@ -141,9 +143,14 @@ export default {
     },
   },
   mounted() {
+    clearInterval(this.pullTimer)
     // 轮询未读消息数量
     this.pull();
   },
+  beforeDestroy() {
+    // 组件卸载时清楚定时器
+    clearInterval(this.pullTimer)
+  }
 };
 </script>
 

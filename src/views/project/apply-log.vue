@@ -1,7 +1,7 @@
 <template>
   <div class="app-page">
 
-    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
+    <Head :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
      <el-table-column type="index" label="排序" width="50" align="center" />
