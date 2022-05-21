@@ -127,7 +127,7 @@ export const constantRoutes = [
       },
       {
         path: 'log',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/clear/clear-log'),
         name: 'clear-log',
         meta: { title: '提现记录' }
       },
@@ -188,7 +188,7 @@ export const constantRoutes = [
         path: 'message',
         component: () => import('@/views/user_management/message'),
         name: 'message',
-        meta: { title: '发布消息' },
+        meta: { title: '消息管理' },
       }
     ]
   }

@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import { dologin, saveUserInfo } from '@/utils/api';
+import { dologin, saveUserInfo } from "@/utils/api";
 export default {
   data() {
     return {
@@ -20,16 +20,19 @@ export default {
   methods: {
     // 登录
     doLogin() {
-      dologin(this.doLoginParams).then(res => {
-        if (res.code === -1) return this.$message.error(res.msg)
-        localStorage.setItem('token', res.data.token)
-        localStorage.setItem('tree', JSON.stringify(res.data.tree))
-        localStorage.setItem('user', JSON.stringify(res.data.user))
-        saveUserInfo({ type: 'get' }).then(res => {
-          this.$store.dispatch('user/updateUserInfo', res.data)
-        })
-        this.$router.push('/')
-      })
+      dologin(this.doLoginParams).then((res) => {
+        if (res.code === -1) return this.$message.error(res.msg);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("tree", JSON.stringify(res.data.tree));
+        localStorage.setItem("node", JSON.stringify(res.data.node));
+        // 用户信息存储到本地
+        saveUserInfo({ type: "get" }).then((res) => {
+          const info = Object.assign(res.data, { id: res.data.user.id });
+          this.$store.dispatch("user/updateUserInfo", info);
+          localStorage.setItem("user", JSON.stringify(info));
+        });
+        this.$router.push("/");
+      });
     },
   },
 };

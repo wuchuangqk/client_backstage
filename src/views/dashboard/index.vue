@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-page">
     <div class="content">
       <div class="content_1">
         <div class="content_1_1" v-for="(item, index) in topData" :key="index">
@@ -11,44 +11,46 @@
       <div class="content_2">
         <div class="content_2_1">
           <div class="content_2_1_1">近30天预估收益(元)</div>
-          <div class="content_2_1_2">
-            <el-select v-model="value" placeholder="请选择">
-              <el-option>近30天预估收益</el-option>
-            </el-select>
-          </div>
           <div class="content_2_1_3" />
         </div>
-        <div id="main" style="width: 1542px;height:430px;" />
+        <div id="main" style="height:430px;" />
       </div>
       <div class="content_3">
         <div class="content_3_1">
           <div class="content_3_1_1">
             <div class="content_3_1_1_1">审核中项目</div>
-            <div class="content_3_1_1_2">
-              <el-select v-model="value" placeholder="请选择">
-                <el-option>近30天预估收益</el-option>
-              </el-select>
-            </div>
           </div>
-          <div class="content_3_1_2">
-            <el-table :data="tableData" style="width:100%" border
-              :header-cell-style="{ background: '#E7E7E7', color: '#494747' }">
-              <el-table-column prop="name" label="日期" />
-              <el-table-column prop="type" label="姓名" />
-            </el-table>
+          <div class="space">
+            <el-scrollbar style="height: 235px;" class="app-scrollbar-vertical">
+              <div class="content_3_1_2">
+                <el-table :data="unpexamine_projectay_table" style="width:100%" border
+                  :header-cell-style="{ background: '#FAFAFA', color: '#494747' }">
+                  <el-table-column prop="title" label="项目名称" />
+                  <el-table-column prop="status" label="状态" align="center">
+                    <template slot-scope="scope">
+                      <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </div>
+            </el-scrollbar>
           </div>
         </div>
         <div class="content_3_1">
           <div class="content_3_1_1">
             <div class="content_3_1_1_1">进行中项目</div>
-            <div class="content_3_1_1_3">查看更多>></div>
+            <div class="content_3_1_1_3" @click="navToMore">查看更多>></div>
           </div>
-          <div class="content_3_1_2">
-            <el-table :data="tableData" style="width:100%" border
-              :header-cell-style="{ background: '#E7E7E7', color: '#494747' }">
-              <el-table-column prop="name" label="日期" />
-              <el-table-column prop="type" label="姓名" />
-            </el-table>
+          <div class="space">
+            <el-scrollbar style="height: 235px;" class="app-scrollbar-vertical">
+              <div class="content_3_1_2">
+                <el-table :data="runing_project_table" style="width:100%" border
+                  :header-cell-style="{ background: '#FAFAFA', color: '#494747' }">
+                  <el-table-column prop="title" label="项目名称" />
+                  <el-table-column prop="price" label="近30天预估收入（元）" align="center" />
+                </el-table>
+              </div>
+            </el-scrollbar>
           </div>
         </div>
       </div>
@@ -68,70 +70,105 @@
 
 <script>
 import * as echarts from "echarts";
-import Vue from 'vue'
+import Vue from "vue";
+import { getIndex } from "@/utils/api";
+import _ from "lodash";
+import { APPLY_STATE } from "@/utils/const";
 export default {
   data() {
     return {
       topData: [
-        { value: "0", key: "进行中项目" },
-        { value: "3", key: "进行中项目" },
-        { value: "4561657", key: "进行中项目" },
-        { value: "1234654", key: "进行中项目" },
-        { value: "45613213", key: "进行中项目" },
+        { value: 0, key: "进行中项目", field: "runing_project" },
+        { value: 0, key: "审核中项目", field: "examine_project" },
+        { value: 0, key: "预估收益", field: "profit_30" },
+        { value: 0, key: "结算收益", field: "pay_30" },
+        { value: 0, key: "未结算收益", field: "unpay" },
       ],
       option: {
         tooltip: {
-          trigger: 'axis'
+          trigger: "axis",
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+          left: "3%",
+          right: "3%",
+          bottom: "3%",
+          containLabel: true,
         },
         xAxis: {
-          type: 'category',
+          type: "category",
           boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: [],
         },
         yAxis: {
-          type: 'value'
+          type: "value",
         },
         series: [
           {
-            name: 'Email',
-            type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230, 210]
+            name: "预估收益",
+            type: "line",
+            stack: "Total",
+            data: [],
           },
-          {
-            name: 'Union Ads',
-            type: 'line',
-            stack: 'Total',
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-        ]
+        ],
       },
-      tableData: [
-        { name: '龙珠', type: '审核中' },
-        { name: '龙珠', type: '审核中' },
-        { name: '龙珠', type: '审核中' },
-      ],
-      remindersDialog: true
+      // 审核中项目
+      unpexamine_projectay_table: [],
+      // 进行中项目
+      runing_project_table: [],
+      remindersDialog: true,
+      chart: null, // 图表
+      chatResize: null, // 图表自适应
     };
   },
   methods: {
-    closeDialog() {
+    closeDialog() {},
+    // 获取首页数据
+    fetchData() {
+      getIndex().then((res) => {
+        this.topData.forEach((v) => {
+          v.value = res.data[v.field];
+        });
+        res.data.list.forEach((v) => {
+          this.option.xAxis.data.push(v.date);
+          this.option.series[0].data.push(v.gmv);
+        });
+        this.chart.setOption(this.option);
+        res.data.unpexamine_projectay_table.forEach((v) => {
+          v.stateTag = "";
+          v.stateText = "";
+          const item = APPLY_STATE.find((val) => val.value === v.status);
+          if (item) {
+            v.stateTag = item.tag;
+            v.stateText = item.key;
+          }
+        });
+        this.unpexamine_projectay_table = res.data.unpexamine_projectay_table;
+        this.runing_project_table = res.data.runing_project_table;
+      });
     },
+    // 查看更多进行中项目
+    navToMore() {
+      this.$router.push('/data/running')
+    }
   },
   mounted() {
-    if (this._remindersDialog) this.remindersDialog = false
-    else Vue.prototype._remindersDialog = true
-    var myChart = echarts.init(document.getElementById('main'));
-    myChart.setOption(this.option);
+    if (this._remindersDialog) this.remindersDialog = false;
+    else Vue.prototype._remindersDialog = true;
+    this.chart = echarts.init(document.getElementById("main"));
+    // myChart.setOption(this.option);
+    // 获取首页数据
+    this.fetchData();
+    this.chatResize = _.debounce(() => {
+      console.log(1);
+      this.chart.resize();
+    }, 300);
+    window.addEventListener("resize", this.chatResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.chatResize);
   },
 };
 </script>
 <style lang="scss" scoped>
-@import './index.scss';
+@import "./index.scss";
 </style>

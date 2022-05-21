@@ -6,7 +6,8 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  size: Cookies.get('size') || 'medium'
+  size: Cookies.get('size') || 'medium',
+  msgCount: 0, // 未读消息数量
 }
 
 const mutations = {
@@ -30,7 +31,10 @@ const mutations = {
   SET_SIZE: (state, size) => {
     state.size = size
     Cookies.set('size', size)
-  }
+  },
+  msgCount: (state, val) => {
+    state.msgCount = val
+  },
 }
 
 const actions = {
@@ -45,7 +49,10 @@ const actions = {
   },
   setSize({ commit }, size) {
     commit('SET_SIZE', size)
-  }
+  },
+  setMsgCount({ commit }, val) {
+    commit('msgCount', val)
+  },
 }
 
 export default {

@@ -59,13 +59,16 @@ export default {
           { required: true, message: "请输入真实姓名", trigger: "blur" },
         ],
         phone: [
-          { validator: (rule, value, callback) => {
-            if (value && !/^1[0-9]{10}$/.test(value)) {
-              callback(new Error('手机号格式有误'))
-            } else {
-              callback()
-            }
-          }, trigger: "blur" },
+          {
+            validator: (rule, value, callback) => {
+              if (value && !/^1[0-9]{10}$/.test(value)) {
+                callback(new Error("手机号格式有误"));
+              } else {
+                callback();
+              }
+            },
+            trigger: "blur",
+          },
         ],
         city: [{ required: true, message: "请输入作业城市", trigger: "blur" }],
         pay_account: [
@@ -101,9 +104,9 @@ export default {
     },
     // 获取用户信息
     fetchData() {
-      saveUserInfo({ type: 'get' }).then((res) => {
+      saveUserInfo({ type: "get" }).then((res) => {
         this.formData = res.data || this.formData;
-        this.formData.type = 'set'
+        this.formData.type = "set";
       });
     },
     // 提交表单
@@ -121,12 +124,14 @@ export default {
     // 保存
     saveOrUpdate() {
       saveUserInfo(this.formData).then((res) => {
-        this.submitLoading = false
+        this.submitLoading = false;
         if (res.code != 1) return this.$message.error(res.msg);
         this.$message.success(res.msg);
         // 更新用户信息
-        localStorage.setItem('user', JSON.stringify(this.formData))
-        this.$store.dispatch('user/updateUserInfo', this.formData)
+        const id = JSON.parse(localStorage.getItem("user")).id;
+        const info = Object.assign(this.formData, { id });
+        localStorage.setItem("user", JSON.stringify(info));
+        this.$store.dispatch("user/updateUserInfo", info);
       });
     },
   },

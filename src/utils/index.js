@@ -69,3 +69,28 @@ export const getPermission = (key1, key2, key3) => {
 //  const tree = localStorage.getItem('tree')
 //  const notFound = { path: '*', redirect: '/404', hidden: true }
 // }
+/**
+ * 验证某个日期是否在本周
+ * @param {*} str 
+ * @returns 
+ */
+function inWeek(str) {
+  if (!str) return false
+  const target = new Date(str)
+  const today = new Date()
+  if (target.getFullYear() !== today.getFullYear() || target.getMonth() !== today.getMonth()) return false
+  const targetDate = target.getDate()
+  const todayDate = today.getDate()
+  const week = today.getDay() === 0 ? 7 : today.getDay()
+  if (targetDate === todayDate) return true
+  if (targetDate > todayDate) {
+    if (targetDate - todayDate <= 7 - week) {
+      return true
+    }
+  } else {
+    if (todayDate - targetDate < week) {
+      return true
+    }
+  }
+  return false
+}

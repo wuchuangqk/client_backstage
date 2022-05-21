@@ -184,3 +184,35 @@ export const saveMessage = data => {
     data: qs.stringify(data),
   });
 };
+/* 获取未读消息数量 */
+export const getUnReadMsg = data => {
+  return request({
+    method: 'POST',
+    url: '/message/getUnreadMessage',
+    data: qs.stringify(data),
+  });
+};
+/* 获取消息列表 */
+export const getMsgList = data => {
+  return request({
+    method: 'POST',
+    url: '/Message/list',
+    data: qs.stringify(data),
+  });
+};
+/* 首页 */
+export const getIndex = data => {
+  return request({
+    method: 'POST',
+    url: '/index/index',
+    data: qs.stringify(data),
+  });
+};
+/* 体现记录 */
+export const getClearLog = data => {
+  return request({
+    method: 'POST',
+    url: '/pay/pay_log',
+    data: qs.stringify(data),
+  });
+};

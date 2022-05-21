@@ -167,7 +167,7 @@ export default {
     // 绑定节点
     bindNode({ id, rule }) {
       this.$router.push({
-        path: '/user_management/node',
+        path: '/message_center/node',
         query: {
           id,
           rule

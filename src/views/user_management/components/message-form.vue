@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="发布消息" :visible.sync="dialog.show" width="600px" :close-on-click-modal="false" :before-close="close">
-    <el-form ref="form" :model="formData" label-position="left" label-width="100px">
-      <el-form-item label="标题">
+    <el-form ref="form" :model="formData" label-position="left" label-width="100px" :rules="rules">
+      <el-form-item label="标题" prop="title">
         <el-input v-model="formData.title" placeholder="请输入标题" maxlength="150" />
       </el-form-item>
       <el-form-item label="内容">
@@ -27,6 +27,10 @@ export default {
       formData: {
         title: "", // 标题
         info: "", // 内容
+      },
+      // 表单校验规则
+      rules: {
+        title: [{ required: true, message: "请输入标题", trigger: "blur" }],
       },
     };
   },
