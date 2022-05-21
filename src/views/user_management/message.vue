@@ -8,7 +8,6 @@
       <el-table-column label="标题" prop="title" align="center"></el-table-column>
       <el-table-column label="内容" prop="info" align="center"></el-table-column>
       <el-table-column label="添加时间" prop="addtime" align="center"></el-table-column>
-      <el-table-column label="状态" prop="status" align="center"></el-table-column>
     </el-table>
     <footer class="app-pagination-wrap">
       <el-pagination :page-sizes="pageSizes" background layout="prev, pager, next, jumper" :total="total"

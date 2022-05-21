@@ -224,3 +224,11 @@ export const markMessage = data => {
     data: qs.stringify(data),
   });
 };
+/* 消息列表 */
+export const getMsgList = data => {
+  return request({
+    method: 'POST',
+    url: '/Message/list',
+    data: qs.stringify(data),
+  });
+};
