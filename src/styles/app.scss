@@ -54,3 +54,10 @@
   display: flex;
   align-items: center;
 }
+
+/* 隐藏el-scrollbar组件水平方向的滚动条 */
+.app-scrollbar-vertical {
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
+}

@@ -3,6 +3,10 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
+      <div class="download">
+        <el-link :underline="false" @click="downloadPdf">操作手册</el-link>
+        <img :src="downloadIcon" alt="" class="img">
+      </div>
       <el-badge :value="msgCount" :hidden="msgCount === 0" class="bell-wrap">
         <div class="bell" @click="navToMessage">
           <img :src="bellImg" alt="" class="img">
@@ -13,7 +17,7 @@
         <div class="app-flex-center">
           <el-avatar size="large" :src="userInfo.photo"></el-avatar>
           <span class="el-dropdown-link">
-            {{ userInfo.name }}
+            {{ `${userInfo.name}(ID:${userInfo.id})` }}
           </span>
           <i class="el-icon-arrow-down el-icon--right"></i>
         </div>
@@ -38,6 +42,7 @@ import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 import ModifyPassword from "./modify-password.vue";
+import { getUnReadMsg } from "@/utils/api";
 
 export default {
   components: {
@@ -49,8 +54,9 @@ export default {
     return {
       // 小铃铛图片
       bellImg: require("@/assets/img/xiaoxi@2x.png"),
-      // 消息数量
-      msgCount: 0
+      downloadLoading: false,
+      // 下载icon
+      downloadIcon: require("@/assets/img/xaizai@2x.png"),
     };
   },
   computed: {
@@ -58,8 +64,9 @@ export default {
     // 用户头像和姓名
     userInfo() {
       const user = {
-        photo: "",
-        name: "",
+        photo: "", // 头像
+        name: "", // 真实姓名
+        id: "", // id
       };
       let info = this.$store.state.user.userInfo;
       // 判断是否刷新了
@@ -67,10 +74,15 @@ export default {
         info = JSON.parse(localStorage.getItem("user"));
         this.$store.dispatch("user/updateUserInfo", info);
       }
-      const { head, user_name, real_name } = info;
+      const { head, user_name, real_name, id } = info;
       user.photo = head || require("@/assets/401_images/401.gif");
       user.name = real_name || user_name;
+      user.id = id;
       return user;
+    },
+    // 未读消息数量
+    msgCount() {
+      return this.$store.state.app.msgCount;
     },
   },
   methods: {
@@ -100,6 +112,37 @@ export default {
     navToMessage() {
       this.$router.push("/message_content/list");
     },
+    // 轮询未读消息数量
+    pull() {
+      // 时间间隔：30秒
+      const interval = 30 * 1000;
+      setInterval(() => {
+        getUnReadMsg().then((res) => {
+          this.$store.dispatch("app/setMsgCount", (res.data || []).length);
+        });
+      }, interval);
+    },
+    // 下载操作手册
+    downloadPdf() {
+      if (this.downloadLoading) {
+        return;
+      }
+      this.downloadLoading = true;
+      const link = document.createElement("a");
+      link.href = "";
+      link.download = "操作手册";
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => {
+        this.downloadLoading = false;
+      }, 2000);
+    },
+  },
+  mounted() {
+    // 轮询未读消息数量
+    // this.pull();
   },
 };
 </script>
@@ -210,5 +253,21 @@ export default {
 }
 .bell-wrap {
   margin-right: 32px;
+}
+.download {
+  margin-right: 32px;
+  .el-link {
+    font-size: 16px;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: #367afd;
+    text-decoration: none;
+  }
+  .img {
+    width: 19px;
+    height: 17px;
+    margin-left: 6px;
+    vertical-align: text-bottom;
+  }
 }
 </style>

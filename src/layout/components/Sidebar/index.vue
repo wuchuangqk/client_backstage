@@ -38,22 +38,27 @@ export default {
       return !this.sidebar.opened;
     },
     permission_routes() {
-      // const tree = JSON.parse(localStorage.getItem('tree'))
-      // return this.filterMenu(tree)
-      return constantRoutes
+      const node = JSON.parse(localStorage.getItem('node'))
+      return this.filterMenu(constantRoutes, node)
     },
   },
   methods: {
     // 筛选出菜单
-    filterMenu(arr) {
-      return arr.filter(v => {
-        if (v.is_menu === 2) {
-          if (v.son) {
-            v.son = this.filterMenu(v.son)
-          }
+    filterMenu(routes, arr) {
+      return routes.filter(v => {
+        // 没有name或者是隐藏菜单的，直接放行
+        if (!v.name || v.hidden) {
           return true
         }
-        return false
+        // 返回的权限菜单里不包含此项
+        if (!arr.includes(v.name)) {
+          return false
+        }
+        // 当返回的权限菜单里包含此项里，继续检查菜单下的子项
+        if (v.children) {
+          v.children = this.filterMenu(v.children, arr)
+        }
+        return true
       })
     },
     // 路由跳转

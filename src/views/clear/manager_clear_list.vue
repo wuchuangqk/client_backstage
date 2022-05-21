@@ -12,7 +12,7 @@
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" prop="jiesuan" align="center" width="80">
+      <el-table-column label="操作" prop="jiesuan" align="center" width="120">
         <!-- 状态未未结算时，可以结算或拒绝 -->
         <template slot-scope="scope" v-if="scope.row.status === 0">
           <el-link type="primary" :underline="false" @click="doApply(scope.row, 1)">结算</el-link>
