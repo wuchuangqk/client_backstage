@@ -216,3 +216,11 @@ export const getClearLog = data => {
     data: qs.stringify(data),
   });
 };
+/* 标记已读 */
+export const markMessage = data => {
+  return request({
+    method: 'POST',
+    url: '/Message/markMessage',
+    data: qs.stringify(data),
+  });
+};
