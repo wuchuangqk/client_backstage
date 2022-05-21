@@ -3,8 +3,12 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-      </template>
+      <el-badge :value="msgCount" :hidden="msgCount === 0" class="bell-wrap">
+        <div class="bell" @click="navToMessage">
+          <img :src="bellImg" alt="" class="img">
+        </div>
+      </el-badge>
+
       <el-dropdown trigger="hover">
         <div class="app-flex-center">
           <el-avatar size="large" :src="userInfo.photo"></el-avatar>
@@ -42,7 +46,12 @@ export default {
     ModifyPassword,
   },
   data() {
-    return {};
+    return {
+      // 小铃铛图片
+      bellImg: require("@/assets/img/xiaoxi@2x.png"),
+      // 消息数量
+      msgCount: 0
+    };
   },
   computed: {
     ...mapGetters(["sidebar", "avatar", "device"]),
@@ -52,11 +61,11 @@ export default {
         photo: "",
         name: "",
       };
-      let info = this.$store.state.user.userInfo
+      let info = this.$store.state.user.userInfo;
       // 判断是否刷新了
       if (Object.keys(info).length === 0) {
-        info = JSON.parse(localStorage.getItem('user'))
-        this.$store.dispatch('user/updateUserInfo', info)
+        info = JSON.parse(localStorage.getItem("user"));
+        this.$store.dispatch("user/updateUserInfo", info);
       }
       const { head, user_name, real_name } = info;
       user.photo = head || require("@/assets/401_images/401.gif");
@@ -87,13 +96,17 @@ export default {
     modifyPassword() {
       this.$refs.password.open();
     },
+    // 跳转到消息页面
+    navToMessage() {
+      this.$router.push("/message_content/list");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-  height: 70px;
+  height: 80px;
   overflow: hidden;
   position: relative;
   background: #fbfbfb;
@@ -175,5 +188,27 @@ export default {
       }
     }
   }
+}
+.bell {
+  width: 43px;
+  height: 43px;
+  background: #ffffff;
+  border: 1px solid #c2c2c2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background: #f3f6fb;
+  }
+  .img {
+    width: 20px;
+    height: 24;
+  }
+}
+.bell-wrap {
+  margin-right: 32px;
 }
 </style>
