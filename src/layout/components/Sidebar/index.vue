@@ -38,8 +38,9 @@ export default {
       return !this.sidebar.opened;
     },
     permission_routes() {
-      const node = JSON.parse(localStorage.getItem('node'))
-      return this.filterMenu(constantRoutes, node)
+      const tree = JSON.parse(localStorage.getItem('tree'))
+      return this.filterMenu(constantRoutes, this.getNameFromTree(tree))
+      // return constantRoutes
     },
   },
   methods: {
@@ -59,6 +60,17 @@ export default {
           v.children = this.filterMenu(v.children, arr)
         }
         return true
+      })
+    },
+    // 提取tree里的name，转成扁平数组
+    getNameFromTree(tree, names) {
+      tree.forEach(v => {
+        if (v.is_menu === 2) {
+          names.push(v.name)
+        }
+        if (v.son) {
+          this.getNameFromTree(v.son, names)
+        }
       })
     },
     // 路由跳转

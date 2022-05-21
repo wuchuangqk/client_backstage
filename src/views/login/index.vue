@@ -24,7 +24,6 @@ export default {
         if (res.code === -1) return this.$message.error(res.msg);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("tree", JSON.stringify(res.data.tree));
-        localStorage.setItem("node", JSON.stringify(res.data.node));
         // 用户信息存储到本地
         saveUserInfo({ type: "get" }).then((res) => {
           const info = Object.assign(res.data, { id: res.data.user.id });
