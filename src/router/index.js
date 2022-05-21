@@ -63,6 +63,7 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '项目申请', icon: 'project_user' },
     alwaysShow: true,
+    name: "project_application",
     children: [
       {
         path: 'list',
@@ -83,6 +84,7 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '账号中心', icon: 'user' },
     alwaysShow: true,
+    name: "account_center",
     children: [
       {
         path: '',
@@ -98,6 +100,7 @@ export const constantRoutes = [
     meta: { title: '数据列表', icon: 'data' },
     alwaysShow: true,
     redirect: '/data/running',
+    name: "data_list",
     children: [
       {
         path: 'running',
@@ -118,6 +121,7 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '结算申请', icon: 'jiesuan' },
     alwaysShow: true,
+    name: "billing_application",
     children: [
       {
         path: 'clear-list',
@@ -144,6 +148,7 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '项目管理', icon: 'project_manager' },
     alwaysShow: true,
+    name: "project_management",
     children: [
       {
         path: 'clear-list',
@@ -170,6 +175,7 @@ export const constantRoutes = [
     component: Layout,
     meta: { title: '用户管理', icon: 'user' },
     alwaysShow: true,
+    name: "user_management",
     children: [
       {
         path: 'user-list',

@@ -184,3 +184,11 @@ export const saveMessage = data => {
     data: qs.stringify(data),
   });
 };
+/* 消息列表 */
+export const getMessageList = data => {
+  return request({
+    method: 'POST',
+    url: '/Message/list',
+    data: qs.stringify(data),
+  });
+};
