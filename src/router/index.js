@@ -29,6 +29,18 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/message_content',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/message_content/index'),
+        name: 'message-list',
+      }
+    ]
+  },
+  {
     path: '/401',
     component: () => import('@/views/error-page/401'),
     hidden: true
@@ -187,7 +199,7 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
 ]
 
 const createRouter = () => new Router({
