@@ -154,7 +154,7 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/user_management',
+    path: '/message_center',
     component: Layout,
     meta: { title: '用户管理', icon: 'user' },
     alwaysShow: true,
