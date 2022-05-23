@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column label="申请项目" prop="jiesuan" align="center">
         <template slot-scope="scope">
-          <el-link type="primary" :underline="false" @click="doApply(scope.row)">申请项目</el-link>
+          <el-link v-if="scope.row.apply !== 0" type="primary" :underline="false" @click="doApply(scope.row)">申请项目</el-link>
         </template>
       </el-table-column>
     </el-table>

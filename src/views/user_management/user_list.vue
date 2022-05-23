@@ -19,7 +19,7 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="s">
+          <template v-if="s.row.id !== 1" slot-scope="s">
             <el-button type="text" @click="userdel(s.row)" v-if="delPermission">删除</el-button>
             <el-button type="text" @click="beforeEdit(s.row)" v-if="editPermission">编辑</el-button>
             <el-button type="text" @click="bindNode(s.row)">绑定节点</el-button>
@@ -98,11 +98,11 @@ export default {
       // 添加管理员参数
       useraddParams: {},
       // 添加管理员权限
-      addPermission: '',
+      addPermission: true,
       // 修改管理员权限
-      editPermission: '',
+      editPermission: true,
       // 删除管理员权限
-      delPermission: '',
+      delPermission: true,
     };
   },
   methods: {
@@ -177,7 +177,7 @@ export default {
   },
   mounted() {
     // 初始化参数
-    this.initParams();
+    // this.initParams();
     // 管理员列表
     this.getUserList();
   },

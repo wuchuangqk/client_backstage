@@ -66,7 +66,7 @@ export default {
     // 用户头像和姓名
     userInfo() {
       const user = {
-        photo: "", // 头像
+        photo: require("@/assets/img/default.png"), // 头像
         name: "", // 真实姓名
         id: "", // id
       };
@@ -76,10 +76,12 @@ export default {
         info = JSON.parse(localStorage.getItem("user"));
         this.$store.dispatch("user/updateUserInfo", info);
       }
-      const { head, user_name, real_name, id } = info;
-      user.photo = head || require("@/assets/img/default.png");
-      user.name = real_name || user_name;
-      user.id = id;
+      if (info) {
+        const { head, user_name, real_name, id } = info;
+        user.photo = head || require("@/assets/img/default.png");
+        user.name = real_name || user_name;
+        user.id = id;
+      }
       return user;
     },
     // 未读消息数量
@@ -134,7 +136,7 @@ export default {
       }
       this.downloadLoading = true;
       const link = document.createElement("a");
-      link.href = "";
+      link.href = "http://mayi.dingdangkuaibao.com/manual.pdf";
       link.download = "操作手册";
       link.style.display = "none";
       document.body.appendChild(link);

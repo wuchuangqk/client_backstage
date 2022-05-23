@@ -20,7 +20,7 @@
 import formMixin from "@/mixins/formMixin";
 import { saveMessage } from "@/utils/api";
 export default {
-  role_name: "RemarkForm",
+  name: "RemarkForm",
   mixins: [formMixin],
   data() {
     return {

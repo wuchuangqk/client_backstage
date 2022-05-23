@@ -1,7 +1,7 @@
 <template>
   <div class="app-page">
 
-    <Head :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
+    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
      <el-table-column type="index" label="排序" width="50" align="center" />
@@ -26,6 +26,7 @@
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="申请时间" prop="add_time" align="center"></el-table-column>
     </el-table>
     <footer class="app-pagination-wrap">
       <el-pagination :page-sizes="pageSizes" background layout="prev, pager, next, jumper" :total="total"
@@ -54,7 +55,7 @@ export default {
           key: "select",
           value: "",
           label: "项目名称",
-          placeholder: "请输入项目名称",
+          placeholder: "请输入",
           type: "input",
         },
       ],
@@ -83,10 +84,12 @@ export default {
             "项目名称",
             "推广类型",
             "单价（元）",
+            "H5链接",
             "申请状态",
+            "申请时间",
           ],
-          key: ["title", "promotion", "price", "stateText"],
-          data: res.data,
+          key: ["title", "promotion", "price", "code", "stateText", "add_time"],
+          data: res.data.list,
           autoWidth: true,
           filename: "申请记录",
         });

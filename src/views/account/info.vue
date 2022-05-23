@@ -73,6 +73,16 @@ export default {
         city: [{ required: true, message: "请输入作业城市", trigger: "blur" }],
         pay_account: [
           { required: true, message: "请输入支付宝账号", trigger: "blur" },
+          {
+            validator: (rule, value, callback) => {
+              if (/[\u4E00-\u9FA5]/g.test(value)) {
+                callback(new Error("账号不能包含中文"));
+              } else {
+                callback();
+              }
+            },
+            trigger: "blur",
+          },
         ],
       },
       // 上传文件地址

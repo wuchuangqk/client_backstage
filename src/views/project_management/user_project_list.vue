@@ -4,7 +4,7 @@
       <el-table :data="tableData" style="width: 100%" border
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
         <el-table-column type="index" label="排序" width="50" align="center" />
-        <el-table-column prop="pid" label="项目名" />
+        <el-table-column prop="title" label="项目名" />
         <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
         <el-table-column prop="user_name" label="做单人名称" />
         <el-table-column label="项目状态" width="80" align="center">
@@ -15,9 +15,10 @@
             <el-tag type="warning" v-if="s.row.status == 3">暂停</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="审批" width="80" align="center">
+        <el-table-column label="审批" width="150" align="center">
           <template slot-scope="s">
             <el-button type="text" @click="saveProjectDataFront(s.row)">添加数据</el-button>
+            <el-button type="text" @click="doPause(s.row)">暂停</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import { getUserProjectList, saveProjectData } from '@/utils/api'
+import { getUserProjectList, saveProjectData, examine } from '@/utils/api'
 export default {
   data() {
     return {
@@ -62,6 +63,7 @@ export default {
       },
       saveProjectDialog: false,
       saveProjectParams: {},
+      pauseLoading: false,
     }
   },
   methods: {
@@ -80,9 +82,28 @@ export default {
       })
     },
     saveProjectDataFront(item) {
-      this.saveProjectParams.id = item.id
+      // this.saveProjectParams.id = item.id
+      this.saveProjectParams = {
+        id: item.id
+      }
       this.saveProjectDialog = true
     },
+    // 暂停项目
+    doPause(row) {
+      if (this.pauseLoading) {
+        return
+      }
+      this.pauseLoading = true
+      examine({
+        id: row.id,
+        status: 3
+      }).then(res => {
+        this.pauseLoading = false
+        if (res.code != 1) return this.$message.error(res.msg);
+        this.$message.success('暂停成功');
+        this.userProjectList()
+      })
+    }
   },
   mounted() {
     this.userProjectList()

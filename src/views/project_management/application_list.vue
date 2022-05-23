@@ -5,7 +5,7 @@
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
         <el-table-column type="index" label="排序" width="50" align="center" />
         <el-table-column prop="user_name" label="申请人" />
-        <el-table-column prop="pid" label="项目名称" />
+        <el-table-column prop="title" label="项目名称" />
         <el-table-column prop="promotion" label="推广方式" width="80" align="center" />
         <el-table-column prop="price" label="项目单价" align="right" />
         <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
@@ -40,7 +40,7 @@
           <el-input v-model="examineParams.code" placeholder="请输入H5链接" />
         </el-form-item>
         <el-form-item label="上传二维码">
-          <el-upload action="http://nad.bdhuoke.com/business_admin/Project/upload" :on-success="uploadSuccess">
+          <el-upload action="http://nad.bdhuoke.com/business_admin/Project/upload" :on-success="uploadSuccess" ref="codeUpload">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
@@ -83,6 +83,9 @@ export default {
     examineFront(item) {
       this.examineDialog = true
       this.examineParams = { id: item.id }
+      this.$nextTick(() => {
+        this.$refs.codeUpload.clearFiles()
+      })
     },
     uploadSuccess(res) {
       this.examineParams.code_img = `http://nad.bdhuoke.com/business_admin/${res.data}`

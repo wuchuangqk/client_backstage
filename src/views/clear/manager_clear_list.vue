@@ -5,9 +5,9 @@
     <el-table :data="tableData" style="width: 100%" border
       :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
       <el-table-column type="index" label="排序" width="50" align="center" />
-      <el-table-column prop="pay_account" label="收款账号" />
-      <el-table-column prop="unpay" label="未结算金额" />
-      <el-table-column prop="status" label="状态">
+      <el-table-column prop="pay_account" label="收款账号" align="center" />
+      <el-table-column prop="unpay" label="未结算金额（元）" align="center" />
+      <el-table-column prop="status" label="状态" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
         </template>
@@ -67,6 +67,7 @@ export default {
             v.stateTag = item.tag;
             v.stateText = item.key;
           }
+          v.unpay = v.unpay.toFixed(2)
         });
         this.tableData = res.data.list;
         this.total = res.data.num;

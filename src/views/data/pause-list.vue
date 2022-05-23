@@ -10,6 +10,11 @@
       <el-table-column label="次留" prop="retention" align="center"></el-table-column>
       <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
       <el-table-column label="结算金额（元）" prop="gmv" align="center"></el-table-column>
+      <el-table-column label="结算状态" prop="pay" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
+        </template>
+      </el-table-column>
     </el-table>
     <footer class="app-pagination-wrap">
       <el-pagination :page-sizes="pageSizes" background layout="prev, pager, next, jumper" :total="total"
@@ -24,6 +29,7 @@ import Head from "@/components/Head/index.vue";
 import listMixin from "@/mixins/listMixin";
 import { getPauseProject } from "@/utils/api";
 import excel from "@/vendor/Export2Excel";
+import { CLEAR_STATE } from "@/utils/const";
 export default {
   components: { Head },
   mixins: [listMixin],
@@ -37,7 +43,7 @@ export default {
           key: "upid",
           value: "",
           label: "项目名称",
-          placeholder: "所有项目",
+          placeholder: "请选择",
           type: "select",
           data: [],
         },
@@ -54,6 +60,15 @@ export default {
     exportListData() {
       this.functionParams[0].loading = true;
       getPauseProject({ page: 1, num: 99999 }).then((res) => {
+        res.data.list.forEach((v) => {
+          v.stateText = "";
+          v.stateTag = "";
+          const item = CLEAR_STATE.find((val) => val.value === v.pay);
+          if (item) {
+            v.stateText = item.key;
+            v.stateTag = item.tag;
+          }
+        });
         excel.exportArrayToExcel({
           title: [
             "日期",
@@ -74,14 +89,26 @@ export default {
     // 获取列表数据
     fetchData() {
       getPauseProject(this.searchParams).then((res) => {
+        res.data.list.forEach((v) => {
+          v.stateText = "";
+          v.stateTag = "";
+          const item = CLEAR_STATE.find((val) => val.value === v.pay);
+          if (item) {
+            v.stateText = item.key;
+            v.stateTag = item.tag;
+          }
+        });
         this.tableData = res.data.list;
         this.total = res.data.num;
-        this.templateParams[0].data = res.data.select.map((v) => {
-          return {
-            key: v.pid,
-            value: v.id,
-          };
-        });
+        if (res.data.select && res.data.select.length) {
+          this.templateParams[0].placeholder = res.data.select[0].pid;
+          this.templateParams[0].data = res.data.select.map((v) => {
+            return {
+              key: v.pid,
+              value: v.id,
+            };
+          });
+        }
       });
     },
     // 执行搜索

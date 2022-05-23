@@ -23,7 +23,7 @@
           <div class="content_3_1_2">
             <el-table :data="unpexamine_projectay_table" style="width:100%" border
               :header-cell-style="{ background: '#FAFAFA', color: '#494747' }" :max-height="235">
-              <el-table-column prop="title" label="项目名称" />
+              <el-table-column prop="title" label="项目名称" align="center" />
               <el-table-column prop="status" label="状态" align="center">
                 <template slot-scope="scope">
                   <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
@@ -40,7 +40,7 @@
           <div class="content_3_1_2">
             <el-table :data="runing_project_table" style="width:100%" border
               :header-cell-style="{ background: '#FAFAFA', color: '#494747' }" :max-height="235">
-              <el-table-column prop="title" label="项目名称" />
+              <el-table-column prop="title" label="项目名称" align="center" />
               <el-table-column prop="price" label="近30天预估收入（元）" align="center" />
             </el-table>
           </div>
@@ -138,6 +138,9 @@ export default {
           }
         });
         this.unpexamine_projectay_table = res.data.unpexamine_projectay_table;
+        res.data.runing_project_table.forEach(v => {
+          v.price = v.price.toFixed(2)
+        })
         this.runing_project_table = res.data.runing_project_table;
       });
     },

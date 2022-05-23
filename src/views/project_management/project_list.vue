@@ -9,8 +9,8 @@
         <el-table-column type="index" label="排序" width="50" align="center" />
         <el-table-column prop="title" label="项目名称" />
         <el-table-column prop="price" label="单价(元)" align="right" />
-        <el-table-column prop="promotion" label="推广类型" width="80" align="center" />
-        <el-table-column label="项目流程" width="150" align="center">
+        <el-table-column prop="promotion" label="推广类型" align="center" />
+        <el-table-column label="项目流程" align="center">
           <template slot-scope="s">
             <el-link type="primary" :underline="false" v-if="s.row.pic" @click="open(s.row.pic)">图片</el-link>
             <el-link type="primary" :underline="false" v-if="s.row.video" @click="open(s.row.video)">视频</el-link>
