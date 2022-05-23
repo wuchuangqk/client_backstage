@@ -232,3 +232,11 @@ export const getMsgList = data => {
     data: qs.stringify(data),
   });
 };
+/* 全部已读 */
+export const markAllMessage = data => {
+  return request({
+    method: 'POST',
+    url: '/Message/markAllMessage',
+    data: qs.stringify(data),
+  });
+};
