@@ -17,16 +17,39 @@
         </el-table-column>
         <el-table-column label="审批" width="80" align="center">
           <template slot-scope="s">
-            <el-button type="text">添加数据</el-button>
+            <el-button type="text" @click="saveProjectDataFront(s.row)">添加数据</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <el-dialog title="添加数据" :visible.sync="saveProjectDialog">
+      <el-form :model="saveProjectParams" label-position="left" label-width="70px">
+        <el-form-item label="日期">
+          <el-date-picker v-model="saveProjectParams.date" type="date" placeholder="选择日期" value-format="yyyy-MM-dd" />
+        </el-form-item>
+        <el-form-item label="单价">
+          <el-input v-model="saveProjectParams.price" />
+        </el-form-item>
+        <el-form-item label="数据">
+          <el-input v-model="saveProjectParams.data" />
+        </el-form-item>
+        <el-form-item label="留存">
+          <el-input v-model="saveProjectParams.retention" />
+        </el-form-item>
+        <el-form-item label="结算金额">
+          <el-input v-model="saveProjectParams.gmv" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="saveProjectDialog = false">取 消</el-button>
+        <el-button type="primary" @click="saveProjectData">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getUserProjectList } from '@/utils/api'
+import { getUserProjectList, saveProjectData } from '@/utils/api'
 export default {
   data() {
     return {
@@ -37,6 +60,8 @@ export default {
         num: 10,
         status: 1,
       },
+      saveProjectDialog: false,
+      saveProjectParams: {},
     }
   },
   methods: {
@@ -45,6 +70,18 @@ export default {
         this.tableData = res.data.list
         this.total = res.data.total
       })
+    },
+    saveProjectData() {
+      saveProjectData(this.saveProjectParams).then(res => {
+        if (res.code === -1) return this.$message.error(res.msg)
+        this.$message.success('添加成功')
+        this.saveProjectDialog = false
+        this.userProjectList()
+      })
+    },
+    saveProjectDataFront(item) {
+      this.saveProjectParams.id = item.id
+      this.saveProjectDialog = true
     },
   },
   mounted() {
