@@ -7,6 +7,7 @@
       <input type="password" class="content_1_3" placeholder="请输入密码" v-model="doLoginParams.password">
       <div class="content_1_4" @click="doLogin">登录</div>
     </div>
+    <img src="../../assets/img/mayiglht@2x.png" class="content_2">
   </div>
 </template>
 <script>
