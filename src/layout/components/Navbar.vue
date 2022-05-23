@@ -42,8 +42,7 @@ import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 import ModifyPassword from "./modify-password.vue";
-import { getUnReadMsg } from "@/utils/api";
-import axios from "axios";
+import { getUnReadMsg, downloadFile } from "@/utils/api";
 
 export default {
   components: {
@@ -136,33 +135,21 @@ export default {
         return;
       }
       this.downloadLoading = true;
-
-      axios({
-        url: "http://mayi.dingdangkuaibao.com/manual.pdf",
-        method: "get",
-        responseType: "arraybuffer",
-      })
-        .then((res) => {
-          return res.arrayBuffer();
-        })
-        .then((blob) => {
-          // 生成 Blob 对象，设置 type 等信息
-          const e = new Blob([blob], {
-            type: "application/octet-stream",
-            "Content-Disposition": "attachment",
-          });
-          // 将 Blob 对象转为 url
-          const link = document.createElement("a");
-          link.href = window.URL.createObjectURL(e);
-          link.download = "操作手册";
-          link.style.display = "none";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          setTimeout(() => {
-            this.downloadLoading = false;
-          }, 2000);
-        });
+      downloadFile().then((res) => {
+        let blob = new Blob([res.data], { type: "application/pdf" }); //type是文件类，详情可以参阅blob文件类型
+        // 创建新的URL并指向File对象或者Blob对象的地址
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "操作手册";
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => {
+          this.downloadLoading = false;
+        }, 2000);
+      });
     },
   },
   mounted() {

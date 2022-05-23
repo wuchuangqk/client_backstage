@@ -240,3 +240,11 @@ export const markAllMessage = data => {
     data: qs.stringify(data),
   });
 };
+/* 下载操作手册 */
+export const downloadFile = data => {
+  return request({
+    method: 'GET',
+    url: '/index/download',
+    responseType: 'blob'
+  });
+};
