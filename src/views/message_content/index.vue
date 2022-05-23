@@ -7,7 +7,7 @@
           <el-radio v-model="readingStatus" :label="0">仅显示未读({{ unreadTotal }})</el-radio>
           <el-radio v-model="readingStatus" :label="1">仅显示已读({{ readTotal }})</el-radio>
         </div>
-        <div class="content_1_2">
+        <div class="content_1_2" @click="markAllMessage">
           <img src="../../assets/img/biaojwyd@2x.png" class="content_1_2_1">
           <div class="content_1_2_2">全部标记为已读</div>
         </div>
@@ -30,15 +30,12 @@
           <div class="content_2_1_2" v-show="item.rotate === 180"> {{ item.info }}</div>
         </div>
       </div>
-      <div class="content_3">
-        <el-pagination :page-size="10" layout="total, prev, pager, next, jumper" :total="showTotal" background />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getMessageList, markMessage } from '@/utils/api';
+import { getMessageList, markAllMessage, markMessage } from '@/utils/api';
 export default {
   data() {
     return {
@@ -102,6 +99,13 @@ export default {
         this.unreadTotal != 0 && (this.unreadTotal -= 1)
         this.readTotal != 0 && (this.readTotal += 1)
         this.$store.dispatch('app/setMsgCount', this.unreadTotal)
+      })
+    },
+    markAllMessage() {
+      markAllMessage().then(res => {
+        this.getMessageList('all');
+        this.getMessageList(0);
+        this.getMessageList(1);
       })
     },
   },
