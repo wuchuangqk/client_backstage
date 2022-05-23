@@ -6,10 +6,10 @@
       :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
       <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column prop="title" label="结算项目" align="center" />
-      <el-table-column prop="unpay" label="未结算金额（元）" align="center" />
-      <el-table-column prop="paying" label="结算中（元）" align="center" />
-      <el-table-column prop="pay" label="已结算金额（元）" align="center" />
-      <el-table-column prop="nopay" label="未通过金额（元）" align="center" />
+      <el-table-column prop="unpay" label="未结算金额(元)" align="center" />
+      <el-table-column prop="paying" label="结算中(元)" align="center" />
+      <el-table-column prop="pay" label="已结算金额(元)" align="center" />
+      <el-table-column prop="nopay" label="未通过金额(元)" align="center" />
       <el-table-column prop="pay_account" label="收款账号" align="center" />
       <el-table-column label="操作" prop="jiesuan" align="center">
         <template slot-scope="scope">

@@ -8,7 +8,7 @@
           <el-link type="primary" :underline="false" @click="$refs.detail.open(s.row.date)">查看</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="金额（元）" prop="price" align="center"></el-table-column>
+      <el-table-column label="金额(元)" prop="price" align="center"></el-table-column>
       <el-table-column label="状态" prop="status" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>

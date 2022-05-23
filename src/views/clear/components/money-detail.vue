@@ -2,10 +2,10 @@
   <el-dialog title="结算数据" :visible.sync="dialog.show" width="800px" :close-on-click-modal="false">
     <el-table :data="tableData" :header-cell-style="_headerCellStyle" border>
       <el-table-column label="日期" prop="date" align="center"></el-table-column>
-      <el-table-column label="金额（元）" prop="price" align="center"></el-table-column>
-      <el-table-column label="金额（元）" prop="data" align="center"></el-table-column>
-      <el-table-column label="金额（元）" prop="gmv" align="center"></el-table-column>
-      <el-table-column label="金额（元）" prop="retention" align="center"></el-table-column>
+      <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
+      <el-table-column label="数据" prop="data" align="center"></el-table-column>
+      <el-table-column label="金额(元)" prop="gmv" align="center"></el-table-column>
+      <el-table-column label="次留（%）" prop="retention" align="center"></el-table-column>
     </el-table>
     <div slot="footer">
       <el-button type="default" @click="close">关闭</el-button>

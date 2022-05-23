@@ -43,6 +43,8 @@ export default {
           { validator: (rule, value, callback) => {
             if (!/^[A-Za-z0-9_]{6,12}$/.test(value)) {
               callback(new Error('密码格式有误'))
+            } else if (this.formData.old_password === value) {
+              callback(new Error('新密码不能和原密码相同'))
             } else {
               callback()
             }

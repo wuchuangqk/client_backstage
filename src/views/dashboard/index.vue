@@ -19,6 +19,7 @@
         <div class="content_3_1">
           <div class="content_3_1_1">
             <div class="content_3_1_1_1">审核中项目</div>
+            <div class="content_3_1_1_3" @click="navToMore('/project/log')">查看更多>></div>
           </div>
           <div class="content_3_1_2">
             <el-table :data="unpexamine_projectay_table" style="width:100%" border
@@ -35,13 +36,13 @@
         <div class="content_3_1">
           <div class="content_3_1_1">
             <div class="content_3_1_1_1">进行中项目</div>
-            <div class="content_3_1_1_3" @click="navToMore">查看更多>></div>
+            <div class="content_3_1_1_3" @click="navToMore('/data/running')">查看更多>></div>
           </div>
           <div class="content_3_1_2">
             <el-table :data="runing_project_table" style="width:100%" border
               :header-cell-style="{ background: '#FAFAFA', color: '#494747' }" :max-height="235">
               <el-table-column prop="title" label="项目名称" align="center" />
-              <el-table-column prop="price" label="近30天预估收入（元）" align="center" />
+              <el-table-column prop="price" label="近30天预估收入(元)" align="center" />
             </el-table>
           </div>
         </div>
@@ -66,7 +67,7 @@ import Vue from "vue";
 import { getIndex } from "@/utils/api";
 import _ from "lodash";
 import { APPLY_STATE } from "@/utils/const";
-import { formatDate } from '@/utils';
+import { formatDate } from "@/utils";
 export default {
   data() {
     return {
@@ -114,7 +115,7 @@ export default {
     };
   },
   methods: {
-    closeDialog() { },
+    closeDialog() {},
     // 获取首页数据
     fetchData() {
       getIndex().then((res) => {
@@ -138,22 +139,26 @@ export default {
             v.stateText = item.key;
           }
         });
-        this.unpexamine_projectay_table = res.data.unpexamine_projectay_table;
-        res.data.runing_project_table.forEach(v => {
-          v.price = v.price.toFixed(2)
-        })
+        // 根据时间倒序排序，并取前三条
+        res.data.unpexamine_projectay_table.sort((a, b) => {
+          return new Date(b.add_time) > new Date(a.add_time) ? 1 : -1;
+        });
+        this.unpexamine_projectay_table = res.data.unpexamine_projectay_table.splice(0, 3);
+        res.data.runing_project_table.forEach((v) => {
+          v.price = v.price.toFixed(2);
+        });
         this.runing_project_table = res.data.runing_project_table;
       });
     },
     // 查看更多进行中项目
-    navToMore() {
-      this.$router.push("/data/running");
+    navToMore(path) {
+      this.$router.push(path);
     },
   },
   mounted() {
-    if (localStorage.getItem('date') != formatDate(new Date(), 'yyyy-MM-dd')) {
-      this.remindersDialog = true
-      localStorage.setItem('date', formatDate(new Date(), 'yyyy-MM-dd'))
+    if (localStorage.getItem("date") != formatDate(new Date(), "yyyy-MM-dd")) {
+      this.remindersDialog = true;
+      localStorage.setItem("date", formatDate(new Date(), "yyyy-MM-dd"));
     }
     // if (this._remindersDialog) this.remindersDialog = false;
     // else Vue.prototype._remindersDialog = true;

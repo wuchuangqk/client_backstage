@@ -8,9 +8,9 @@
       <el-table-column label="日期" prop="date" align="center" />
       <el-table-column label="项目名称" prop="upid" align="center"></el-table-column>
       <el-table-column label="数据" prop="data" align="center"></el-table-column>
-      <el-table-column label="次留" prop="retention" align="center"></el-table-column>
-      <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
-      <el-table-column label="结算金额（元）" prop="gmv" align="center"></el-table-column>
+      <el-table-column label="次留（%）" prop="retention" align="center"></el-table-column>
+      <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
+      <el-table-column label="结算金额(元)" prop="gmv" align="center"></el-table-column>
       <el-table-column label="结算状态" prop="pay" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
@@ -78,8 +78,8 @@ export default {
             "项目名称",
             "数据",
             "次留",
-            "单价（元）",
-            "结算金额（元）",
+            "单价(元)",
+            "结算金额(元)",
             "结算状态",
           ],
           key: [

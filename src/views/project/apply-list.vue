@@ -6,7 +6,7 @@
       <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
-      <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
+      <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
       <el-table-column label="项目流程" prop="" align="center">
         <template slot-scope="scope">
           <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.pic)">图片</el-link>
@@ -66,7 +66,7 @@ export default {
           title: [
             "项目名称",
             "推广类型",
-            "单价（元）",
+            "单价(元)",
           ],
           key: ["title", "promotion", "price"],
           data: res.data.list,

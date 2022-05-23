@@ -3,10 +3,14 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
     <div class="right-menu">
-      <div class="download">
+      <!-- <div class="download">
         <el-link :underline="false" @click="downloadPdf">操作手册</el-link>
         <img :src="downloadIcon" alt="" class="img">
-      </div>
+      </div> -->
+      <a href="http://mayi.dingdangkuaibao.com/manual.pdf" target="_blank" class="download">
+        <span>操作手册</span>
+        <img :src="downloadIcon" alt="" class="img">
+      </a>
       <el-badge :value="msgCount" :hidden="msgCount === 0" class="bell-wrap">
         <div class="bell" @click="navToMessage">
           <img :src="bellImg" alt="" class="img">
@@ -131,25 +135,7 @@ export default {
     },
     // 下载操作手册
     downloadPdf() {
-      if (this.downloadLoading) {
-        return;
-      }
-      this.downloadLoading = true;
-      downloadFile().then((res) => {
-        let blob = new Blob([res.data], { type: "application/pdf" }); //type是文件类，详情可以参阅blob文件类型
-        // 创建新的URL并指向File对象或者Blob对象的地址
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "操作手册";
-        link.style.display = "none";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => {
-          this.downloadLoading = false;
-        }, 2000);
-      });
+      window.open("http://mayi.dingdangkuaibao.com/manual.pdf");
     },
   },
   mounted() {
@@ -272,19 +258,16 @@ export default {
   margin-right: 32px;
 }
 .download {
+  display: block;
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #367afd;
   margin-right: 32px;
-  .el-link {
-    font-size: 16px;
-    font-family: PingFang SC;
-    font-weight: 500;
-    color: #367afd;
-    text-decoration: none;
-  }
   .img {
     width: 19px;
     height: 17px;
     margin-left: 6px;
-    vertical-align: text-bottom;
   }
 }
 </style>

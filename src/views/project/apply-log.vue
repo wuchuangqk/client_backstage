@@ -7,7 +7,7 @@
      <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
-      <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
+      <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
       <el-table-column label="项目流程" prop="" align="center">
         <template slot-scope="scope">
           <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.pic)">图片</el-link>
@@ -18,7 +18,7 @@
       <el-table-column label="H5链接" prop="code" align="center"></el-table-column>
       <el-table-column label="二维码" prop="" align="center">
         <template slot-scope="scope">
-          <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.code_img)">查看</el-link>
+          <el-link v-if="scope.row.code_img" type="primary" :underline="false" @click="open(scope.row.code_img)">查看</el-link>
         </template>
       </el-table-column>
       <el-table-column label="申请状态" prop="status" align="center">
@@ -83,7 +83,7 @@ export default {
           title: [
             "项目名称",
             "推广类型",
-            "单价（元）",
+            "单价(元)",
             "H5链接",
             "申请状态",
             "申请时间",
