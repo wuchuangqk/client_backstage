@@ -66,6 +66,7 @@ import Vue from "vue";
 import { getIndex } from "@/utils/api";
 import _ from "lodash";
 import { APPLY_STATE } from "@/utils/const";
+import { formatDate } from '@/utils';
 export default {
   data() {
     return {
@@ -107,13 +108,13 @@ export default {
       unpexamine_projectay_table: [],
       // 进行中项目
       runing_project_table: [],
-      remindersDialog: true,
+      remindersDialog: false,
       chart: null, // 图表
       chatResize: null, // 图表自适应
     };
   },
   methods: {
-    closeDialog() {},
+    closeDialog() { },
     // 获取首页数据
     fetchData() {
       getIndex().then((res) => {
@@ -150,8 +151,12 @@ export default {
     },
   },
   mounted() {
-    if (this._remindersDialog) this.remindersDialog = false;
-    else Vue.prototype._remindersDialog = true;
+    if (localStorage.getItem('date') != formatDate(new Date(), 'yyyy-MM-dd')) {
+      this.remindersDialog = true
+      localStorage.setItem('date', formatDate(new Date(), 'yyyy-MM-dd'))
+    }
+    // if (this._remindersDialog) this.remindersDialog = false;
+    // else Vue.prototype._remindersDialog = true;
     this.chart = echarts.init(document.getElementById("main"));
     // myChart.setOption(this.option);
     // 获取首页数据
