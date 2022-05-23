@@ -5,7 +5,7 @@
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column label="日期" prop="date" align="center"></el-table-column>
-      <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
+      <el-table-column label="项目名称" prop="upid" align="center"></el-table-column>
       <el-table-column label="数据" prop="data" align="center"></el-table-column>
       <el-table-column label="次留" prop="retention" align="center"></el-table-column>
       <el-table-column label="单价（元）" prop="price" align="center"></el-table-column>
