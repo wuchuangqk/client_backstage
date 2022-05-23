@@ -12,9 +12,9 @@
         <el-table-column prop="promotion" label="推广类型" width="80" align="center" />
         <el-table-column label="项目流程" width="150" align="center">
           <template slot-scope="s">
-            <el-link type="primary" :underline="false" v-if="s.row.pic">图片</el-link>
-            <el-link type="primary" :underline="false" v-if="s.row.file">视频</el-link>
-            <el-link type="primary" :underline="false" v-if="s.row.video">文件</el-link>
+            <el-link type="primary" :underline="false" v-if="s.row.pic" @click="open(s.row.pic)">图片</el-link>
+            <el-link type="primary" :underline="false" v-if="s.row.video" @click="open(s.row.video)">视频</el-link>
+            <el-link type="primary" :underline="false" v-if="s.row.file" @click="open(s.row.file)">文件</el-link>
           </template>
         </el-table-column>
         <el-table-column label="修改项目" width="80" align="center">
@@ -42,19 +42,19 @@
           <el-input v-model="saveParams.price" placeholder="请输入项目单价" />
         </el-form-item>
         <el-form-item label="流程图片">
-          <el-upload :headers="{ token }" :on-success="picSuccess"
+          <el-upload :headers="{ token }" :on-success="picSuccess" ref="picUpload"
             action="http://nad.bdhuoke.com/business_admin/Project/upload">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
         <el-form-item label="流程视频">
-          <el-upload :headers="{ token }" :on-success="videoSuccess"
+          <el-upload :headers="{ token }" :on-success="videoSuccess" ref="videoUpload"
             action="http://nad.bdhuoke.com/business_admin/Project/upload">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
         <el-form-item label="流程文档">
-          <el-upload :headers="{ token }" :on-success="fileSuccess"
+          <el-upload :headers="{ token }" :on-success="fileSuccess" ref="fileUpload"
             action="http://nad.bdhuoke.com/business_admin/Project/upload">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
@@ -106,96 +106,112 @@
 </template>
 
 <script>
-import { PROMOTION_TYPE } from '@/utils/const'
-import Head from '../../components/Head/index'
-import { getProjectList, saveProject, updateProject } from '../../utils/api'
+import { PROMOTION_TYPE } from "@/utils/const";
+import Head from "../../components/Head/index";
+import { getProjectList, saveProject, updateProject } from "../../utils/api";
 export default {
   data() {
     return {
       searchParams: [
-        { label: "项目名称", value: "", type: "input", placeholder: "请输入项目名称", key: 'select' },
+        {
+          label: "项目名称",
+          value: "",
+          type: "input",
+          placeholder: "请输入项目名称",
+          key: "select",
+        },
         // { label: "推广类型", value: "", type: "select", placeholder: "请选择推广类型", data: [{ value: '1', key: 1 }] }
       ],
       listParams: {
         page: 1,
-        num: 10
+        num: 10,
       },
       tableData: [],
       total: 0,
-      functionParams: [
-        { text: "添加项目", callback: "saveProjectPre" }
-      ],
+      functionParams: [{ text: "添加项目", callback: "saveProjectPre" }],
       saveParams: {},
       dialogFormVisible: false,
       promotion: [],
-      token: '',
+      token: "",
       updateParams: {},
       updateDialog: false,
-    }
+    };
   },
   methods: {
     getProjectList() {
-      getProjectList(this.listParams).then(res => {
-        this.tableData = res.data.list
-        this.total = res.data.num
-      })
+      getProjectList(this.listParams).then((res) => {
+        this.tableData = res.data.list;
+        this.total = res.data.num;
+      });
     },
     saveProject() {
-      saveProject(this.saveParams).then(res => {
-        if (res.code === -1) return this.$message.error(res.msg)
-        this.$message.success('添加成功')
-        this.getProjectList()
-        this.dialogFormVisible = false
-      })
+      saveProject(this.saveParams).then((res) => {
+        if (res.code === -1) return this.$message.error(res.msg);
+        this.$message.success("添加成功");
+        this.getProjectList();
+        this.dialogFormVisible = false;
+      });
     },
     clickBack(methodName) {
-      this[methodName]()
+      this[methodName]();
     },
     picSuccess(response) {
-      this.saveParams.pic = `http://nad.bdhuoke.com/${response.data}`
-      this.updateParams.pic = `http://nad.bdhuoke.com/${response.data}`
+      this.saveParams.pic = `http://nad.bdhuoke.com/${response.data}`;
+      this.updateParams.pic = `http://nad.bdhuoke.com/${response.data}`;
     },
     fileSuccess(response) {
-      this.saveParams.file = `http://nad.bdhuoke.com/${response.data}`
-      this.updateParams.file = `http://nad.bdhuoke.com/${response.data}`
+      this.saveParams.file = `http://nad.bdhuoke.com/${response.data}`;
+      this.updateParams.file = `http://nad.bdhuoke.com/${response.data}`;
     },
     videoSuccess(response) {
-      this.saveParams.video = `http://nad.bdhuoke.com/${response.data}`
-      this.updateParams.video = `http://nad.bdhuoke.com/${response.data}`
+      this.saveParams.video = `http://nad.bdhuoke.com/${response.data}`;
+      this.updateParams.video = `http://nad.bdhuoke.com/${response.data}`;
     },
     saveProjectPre() {
-      this.dialogFormVisible = true
+      this.dialogFormVisible = true;
+      // 清空字段值
+      this.saveParams = {};
+      // 清空附件
+      this.$nextTick(() => {
+        this.$refs.picUpload.clearFiles();
+        this.$refs.videoUpload.clearFiles();
+        this.$refs.fileUpload.clearFiles();
+      });
     },
     updateProject() {
-      updateProject(this.updateParams).then(res => {
-        if (res.code === -1) return this.$message.error(res.msg)
-        this.getProjectList()
-        this.updateDialog = false
-        this.$message.success('修改成功')
-      })
+      updateProject(this.updateParams).then((res) => {
+        if (res.code === -1) return this.$message.error(res.msg);
+        this.getProjectList();
+        this.updateDialog = false;
+        this.$message.success("修改成功");
+      });
     },
     updateProjectPre(item) {
-      this.updateParams = item
-      this.updateDialog = true
+      this.updateParams = item;
+      this.updateDialog = true;
     },
     searchList(params) {
-      this.listParams.select = params.select
-      this.getProjectList()
+      this.listParams.select = params.select;
+      this.getProjectList();
     },
     currentChange(page) {
-      this.listParams.page = page
-      this.getProjectList()
+      this.listParams.page = page;
+      this.getProjectList();
+    },
+    // 在新窗口预览
+    open(url) {
+      window.open(url);
     },
   },
   mounted() {
-    this.promotion = PROMOTION_TYPE
-    this.token = localStorage.getItem('token')
-    this.getProjectList()
+    this.promotion = PROMOTION_TYPE;
+    this.token = localStorage.getItem("token");
+    this.getProjectList();
   },
-  components: { Head }
-}
+  components: { Head },
+};
 </script>
 
 <style lang="scss" scoped>
-@import './project_list.scss';
+@import "./project_list.scss";
 </style>
