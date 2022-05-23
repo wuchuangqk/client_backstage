@@ -15,6 +15,12 @@
           <el-link v-if="scope.row.file" type="primary" :underline="false" @click="open(scope.row.pic)">文件</el-link>
         </template>
       </el-table-column>
+      <el-table-column label="H5链接" prop="code" align="center"></el-table-column>
+      <el-table-column label="二维码" prop="" align="center">
+        <template slot-scope="scope">
+          <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.code_img)">查看</el-link>
+        </template>
+      </el-table-column>
       <el-table-column label="申请状态" prop="status" align="center">
         <template slot-scope="scope">
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>

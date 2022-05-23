@@ -39,14 +39,15 @@ export default {
           label: "项目名称",
           value: "",
           placeholder: "输入项目名称",
+          key: 'select'
         },
-        {
-          type: "select",
-          label: "处理状态",
-          value: "",
-          placeholder: "所有状态",
-          data: CLEAR_STATE
-        },
+        // {
+        //   type: "select",
+        //   label: "处理状态",
+        //   value: "",
+        //   placeholder: "所有状态",
+        //   data: CLEAR_STATE
+        // },
       ],
     };
   },

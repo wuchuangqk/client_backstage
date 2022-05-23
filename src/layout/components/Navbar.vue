@@ -116,6 +116,9 @@ export default {
     },
     // 轮询未读消息数量
     pull() {
+      getUnReadMsg().then((res) => {
+        this.$store.dispatch("app/setMsgCount", (res.data || []).length);
+      });
       // 时间间隔：1分钟
       const interval = 1 * 60 * 1000;
       this.pullTimer = setInterval(() => {
@@ -143,14 +146,14 @@ export default {
     },
   },
   mounted() {
-    clearInterval(this.pullTimer)
+    clearInterval(this.pullTimer);
     // 轮询未读消息数量
     this.pull();
   },
   beforeDestroy() {
     // 组件卸载时清楚定时器
-    clearInterval(this.pullTimer)
-  }
+    clearInterval(this.pullTimer);
+  },
 };
 </script>
 

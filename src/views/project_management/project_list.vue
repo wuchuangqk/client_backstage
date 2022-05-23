@@ -113,8 +113,8 @@ export default {
   data() {
     return {
       searchParams: [
-        { label: "项目名称", value: "", type: "input", placeholder: "请输入项目名称", key: 'title' },
-        { label: "推广类型", value: "", type: "select", placeholder: "请选择推广类型", data: [{ value: '1', key: 1 }] }
+        { label: "项目名称", value: "", type: "input", placeholder: "请输入项目名称", key: 'select' },
+        // { label: "推广类型", value: "", type: "select", placeholder: "请选择推广类型", data: [{ value: '1', key: 1 }] }
       ],
       listParams: {
         page: 1,
@@ -179,7 +179,7 @@ export default {
       this.updateDialog = true
     },
     searchList(params) {
-      this.listParams.title = params.title
+      this.listParams.select = params.select
       this.getProjectList()
     },
     currentChange(page) {

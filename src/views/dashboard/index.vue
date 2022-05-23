@@ -20,20 +20,16 @@
           <div class="content_3_1_1">
             <div class="content_3_1_1_1">审核中项目</div>
           </div>
-          <div class="space">
-            <el-scrollbar style="height: 235px;" class="app-scrollbar-vertical">
-              <div class="content_3_1_2">
-                <el-table :data="unpexamine_projectay_table" style="width:100%" border
-                  :header-cell-style="{ background: '#FAFAFA', color: '#494747' }">
-                  <el-table-column prop="title" label="项目名称" />
-                  <el-table-column prop="status" label="状态" align="center">
-                    <template slot-scope="scope">
-                      <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
-                    </template>
-                  </el-table-column>
-                </el-table>
-              </div>
-            </el-scrollbar>
+          <div class="content_3_1_2">
+            <el-table :data="unpexamine_projectay_table" style="width:100%" border
+              :header-cell-style="{ background: '#FAFAFA', color: '#494747' }" :max-height="235">
+              <el-table-column prop="title" label="项目名称" />
+              <el-table-column prop="status" label="状态" align="center">
+                <template slot-scope="scope">
+                  <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
+                </template>
+              </el-table-column>
+            </el-table>
           </div>
         </div>
         <div class="content_3_1">
@@ -41,16 +37,12 @@
             <div class="content_3_1_1_1">进行中项目</div>
             <div class="content_3_1_1_3" @click="navToMore">查看更多>></div>
           </div>
-          <div class="space">
-            <el-scrollbar style="height: 235px;" class="app-scrollbar-vertical">
-              <div class="content_3_1_2">
-                <el-table :data="runing_project_table" style="width:100%" border
-                  :header-cell-style="{ background: '#FAFAFA', color: '#494747' }">
-                  <el-table-column prop="title" label="项目名称" />
-                  <el-table-column prop="price" label="近30天预估收入（元）" align="center" />
-                </el-table>
-              </div>
-            </el-scrollbar>
+          <div class="content_3_1_2">
+            <el-table :data="runing_project_table" style="width:100%" border
+              :header-cell-style="{ background: '#FAFAFA', color: '#494747' }" :max-height="235">
+              <el-table-column prop="title" label="项目名称" />
+              <el-table-column prop="price" label="近30天预估收入（元）" align="center" />
+            </el-table>
           </div>
         </div>
       </div>
@@ -127,8 +119,8 @@ export default {
       getIndex().then((res) => {
         this.topData.forEach((v) => {
           v.value = res.data[v.field];
-          if (['profit_30', 'pay_30', 'unpay'].includes(v.field)) {
-            v.value = v.value.toFixed(2)
+          if (["profit_30", "pay_30", "unpay"].includes(v.field)) {
+            v.value = v.value.toFixed(2);
           }
         });
         res.data.list.forEach((v) => {
@@ -151,8 +143,8 @@ export default {
     },
     // 查看更多进行中项目
     navToMore() {
-      this.$router.push('/data/running')
-    }
+      this.$router.push("/data/running");
+    },
   },
   mounted() {
     if (this._remindersDialog) this.remindersDialog = false;
