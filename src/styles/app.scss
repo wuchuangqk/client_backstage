@@ -42,10 +42,12 @@
 
 .el-link {
   text-decoration: underline;
+
   &:hover {
     text-decoration: underline;
   }
-  & + .el-link {
+
+  &+.el-link {
     margin-left: 20px;
   }
 }
@@ -59,5 +61,25 @@
 .app-scrollbar-vertical {
   .el-scrollbar__wrap {
     overflow-x: hidden;
+  }
+}
+
+.el-notification.right {
+  top: 78px !important;
+  right: 14px;
+  width: 620px;
+  padding-top: 18px;
+  padding-left: 20px;
+
+  .el-notification__content {
+    margin-top: 16px;
+    font-size: 15px;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #282828;
+    line-height: 25px;
+  }
+  .el-notification__group {
+    margin: 0;
   }
 }

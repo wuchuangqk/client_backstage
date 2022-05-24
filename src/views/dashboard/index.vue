@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div class="mask" v-if="remindersDialog">
+    <!-- <div class="mask" v-if="remindersDialog">
       <div class="mask_1">
         <div class="mask_1_1">[官方提醒] 项目作业必读提醒</div>
         <div class="mask_1_2">
@@ -57,7 +57,7 @@
         </div>
         <div class="mask_1_3" @click="remindersDialog = false">知道了</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -157,7 +157,15 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("date") != formatDate(new Date(), "yyyy-MM-dd")) {
-      this.remindersDialog = true;
+      this.$notify({
+        title: '[官方提醒] 项目作业必读提醒',
+        dangerouslyUseHTMLString: true,
+        message: `
+          <div>尊敬的会员您好，望项目作业前请您务必阅读以下提醒：</div>
+          <div>选择开通项目前请您务必确定自身是否可以作业，开通后的项目链接或者二维码若3天内没有作业将会自动关闭，下次作业前需要会员重新提交申请项目，感谢您的理解！</div>
+        `,
+        duration: 0
+      });
       localStorage.setItem("date", formatDate(new Date(), "yyyy-MM-dd"));
     }
     // if (this._remindersDialog) this.remindersDialog = false;
