@@ -12,6 +12,8 @@
         <el-table-column prop="last_login_ip" label="上次登录IP" width="130" />
         <el-table-column prop="last_login_time" label="上次登录时间" width="160" align="center" />
         <el-table-column prop="real_name" label="真实姓名" />
+        <el-table-column prop="phone" label="手机号" />
+        <el-table-column prop="city" label="作业城市" />
         <el-table-column label="状态" width="70" align="center">
           <template slot-scope="s">
             <el-tag type="success" v-if="s.row.status === '正常'">{{ s.row.status }}</el-tag>
@@ -41,6 +43,12 @@
         <el-form-item label="账号来源">
           <el-input v-model="userItem.source" />
         </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model="userItem.phone" />
+        </el-form-item>
+        <el-form-item label="作业城市">
+          <el-input v-model="userItem.city" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -60,6 +68,12 @@
         </el-form-item>
         <el-form-item label="账号来源">
           <el-input v-model="useraddParams.source" />
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model="useraddParams.phone" />
+        </el-form-item>
+        <el-form-item label="作业城市">
+          <el-input v-model="useraddParams.city" />
         </el-form-item>
         <!-- <el-form-item label="当前角色">
           <el-select v-model="useraddParams.role_id" placeholder="请选择角色">
