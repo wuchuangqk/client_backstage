@@ -4,7 +4,9 @@
       <el-table :data="tableData" style="width: 100%" border
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
         <el-table-column type="index" label="排序" width="50" align="center" />
-        <el-table-column prop="user_name" label="申请人" />
+        <el-table-column prop="real_name" label="申请人" />
+        <el-table-column prop="phone" label="手机号" />
+        <el-table-column prop="city" label="作业城市" />
         <el-table-column prop="title" label="项目名称" />
         <el-table-column prop="promotion" label="推广方式" width="80" align="center" />
         <el-table-column prop="price" label="项目单价" align="right" />
