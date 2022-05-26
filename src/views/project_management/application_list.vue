@@ -90,7 +90,7 @@ export default {
       })
     },
     uploadSuccess(res) {
-      this.examineParams.code_img = `http://nad.bdhuoke.com/business_admin/${res.data}`
+      this.examineParams.code_img = `http://nad.bdhuoke.com/${res.data}`
     },
     currentChange(val) {
       this.params.page = val
