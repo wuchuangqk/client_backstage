@@ -1,10 +1,10 @@
 <template>
   <div class="app-page">
-
-    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
+    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch"
+      @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
-     <el-table-column type="index" label="排序" width="50" align="center" />
+      <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
       <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
@@ -18,7 +18,8 @@
       <el-table-column label="H5链接" prop="code" align="center"></el-table-column>
       <el-table-column label="二维码" prop="" align="center">
         <template slot-scope="scope">
-          <el-link v-if="scope.row.code_img" type="primary" :underline="false" @click="open(scope.row.code_img)">查看</el-link>
+          <el-link v-if="scope.row.codeImgArr.length" type="primary" :underline="false"
+            @click="previewImg(scope.row.codeImgArr)">查看{{ scope.row.codeImgArr.length > 1 ? `(${scope.row.codeImgArr.length})` : '' }}</el-link>
         </template>
       </el-table-column>
       <el-table-column label="申请状态" prop="status" align="center">
@@ -33,6 +34,8 @@
         :page-size="searchParams.num" :current-page="searchParams.page" @size-change="handleSizeChange"
         @current-change="handleCurrentChange" />
     </footer>
+    <el-image :src="url" :preview-src-list="previewImgs" ref="preview" style="position:absolute;">
+    </el-image>
   </div>
 </template>
 
@@ -61,7 +64,8 @@ export default {
       ],
       // 按钮参数
       functionParams: [{ text: "导出", callback: "exportListData", loading: false }],
-      applyState: APPLY_STATE
+      applyState: APPLY_STATE,
+      previewImgs: [], // 二维码预览
     };
   },
   methods: {
@@ -107,6 +111,7 @@ export default {
             v.stateTag = item.tag
             v.stateText = item.key
           }
+          v.codeImgArr = v.code_img ? v.code_img.split(',') : []
         })
         this.tableData = res.data.list;
         this.total = res.data.num;
@@ -121,6 +126,13 @@ export default {
     open(url) {
       window.open(url)
     },
+    // 预览二维码
+    previewImg(imgArr) {
+      this.previewImgs = imgArr
+      this.$nextTick(() => {
+        this.$refs.preview.clickHandler()
+      })
+    }
   },
   mounted() {
     // 获取列表数据

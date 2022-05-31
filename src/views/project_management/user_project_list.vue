@@ -6,7 +6,10 @@
         <el-table-column type="index" label="排序" width="50" align="center" />
         <el-table-column prop="title" label="项目名" />
         <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
-        <el-table-column prop="user_name" label="做单人名称" />
+        <el-table-column prop="user_name" label="做单人账号" />
+        <el-table-column prop="real_name" label="真实姓名" />
+        <el-table-column prop="city" label="地址" />
+        <el-table-column prop="phone" label="手机号" />
         <el-table-column label="项目状态" width="80" align="center">
           <template slot-scope="s">
             <el-tag type="danger" v-if="s.row.status == 0">异常</el-tag>
