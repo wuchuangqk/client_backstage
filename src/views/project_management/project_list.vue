@@ -17,9 +17,10 @@
             <el-link type="primary" :underline="false" v-if="s.row.file" @click="open(s.row.file)">文件</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="修改项目" width="80" align="center">
+        <el-table-column label="修改项目" width="120" align="center">
           <template slot-scope="s">
             <el-link type="primary" :underline="false" @click="updateProjectPre(s.row)">修改</el-link>
+            <el-link type="primary" :underline="false" @click="doPause(s.row)">暂停</el-link>
           </template>
         </el-table-column>
       </el-table>
@@ -108,7 +109,7 @@
 <script>
 import { PROMOTION_TYPE } from "@/utils/const";
 import Head from "../../components/Head/index";
-import { getProjectList, saveProject, updateProject } from "../../utils/api";
+import { getProjectList, saveProject, updateProject, pause } from "../../utils/api";
 export default {
   data() {
     return {
@@ -135,6 +136,7 @@ export default {
       token: "",
       updateParams: {},
       updateDialog: false,
+      pauseLoading: false,
     };
   },
   methods: {
@@ -189,6 +191,25 @@ export default {
     updateProjectPre(item) {
       this.updateParams = item;
       this.updateDialog = true;
+    },
+    // 暂停项目
+    doPause(item) {
+      if (this.pauseLoading) return
+      this.$confirm("确定暂停吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.pauseLoading = true
+          pause({ id: item.id }).then((res) => {
+            this.pauseLoading = false
+            if (res.code != 1) return this.$message.error(res.msg);
+            this.$message.success(res.msg);
+            this.fetchData();
+          });
+        })
+        .catch(() => { });
     },
     searchList(params) {
       this.listParams.select = params.select;
