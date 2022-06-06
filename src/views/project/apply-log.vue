@@ -11,8 +11,8 @@
       <el-table-column label="项目流程" prop="" align="center">
         <template slot-scope="scope">
           <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.pic)">图片</el-link>
-          <el-link v-if="scope.row.video" type="primary" :underline="false" @click="open(scope.row.pic)">视频</el-link>
-          <el-link v-if="scope.row.file" type="primary" :underline="false" @click="open(scope.row.pic)">文件</el-link>
+          <el-link v-if="scope.row.video" type="primary" :underline="false" @click="open(scope.row.video)">视频</el-link>
+          <el-link v-if="scope.row.file" type="primary" :underline="false" @click="open(scope.row.file)">文件</el-link>
         </template>
       </el-table-column>
       <el-table-column label="H5链接" prop="code" align="center"></el-table-column>
