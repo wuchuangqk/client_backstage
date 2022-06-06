@@ -81,6 +81,9 @@ export default {
           data: []
         },
       ],
+      searchParams: {
+        status: 1,
+      }
     }
   },
   methods: {
