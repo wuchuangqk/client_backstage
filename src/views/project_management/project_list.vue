@@ -142,6 +142,11 @@ export default {
   methods: {
     getProjectList() {
       getProjectList(this.listParams).then((res) => {
+        res.data.list.forEach(v => {
+          v.pic = v.pic && v.pic.trim()
+          v.video = v.video && v.video.trim()
+          v.file = v.file && v.file.trim()
+        })
         this.tableData = res.data.list;
         this.total = res.data.num;
       });

@@ -34,7 +34,7 @@
         :page-size="searchParams.num" :current-page="searchParams.page" @size-change="handleSizeChange"
         @current-change="handleCurrentChange" />
     </footer>
-    <el-image :src="url" :preview-src-list="previewImgs" ref="preview" style="position:absolute;">
+    <el-image src="" :preview-src-list="previewImgs" ref="preview" style="position:absolute;">
     </el-image>
   </div>
 </template>
@@ -112,6 +112,9 @@ export default {
             v.stateText = item.key
           }
           v.codeImgArr = v.code_img ? v.code_img.split(',') : []
+          v.pic = v.pic && v.pic.trim()
+          v.video = v.video && v.video.trim()
+          v.file = v.file && v.file.trim()
         })
         this.tableData = res.data.list;
         this.total = res.data.num;

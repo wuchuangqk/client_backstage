@@ -79,6 +79,11 @@ export default {
     // 获取列表数据
     fetchData() {
       getProjectList(this.searchParams).then((res) => {
+        res.data.list.forEach(v => {
+          v.pic = v.pic && v.pic.trim()
+          v.video = v.video && v.video.trim()
+          v.file = v.file && v.file.trim()
+        })
         this.tableData = res.data.list;
         this.total = res.data.num;
       });
