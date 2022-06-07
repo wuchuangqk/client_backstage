@@ -8,6 +8,7 @@
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
         <el-table-column type="index" label="排序" width="50" align="center" />
         <el-table-column prop="title" label="项目名称" />
+        <el-table-column prop="info" label="详情" />
         <el-table-column prop="price" label="单价(元)" align="right" />
         <el-table-column prop="promotion" label="推广类型" align="center" />
         <el-table-column label="项目流程" align="center">
@@ -60,6 +61,9 @@
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
+        <el-form-item label="详情">
+          <el-input v-model="saveParams.info" placeholder="请输入详情" type="textarea" :rows="3" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -96,6 +100,9 @@
             action="http://nad.bdhuoke.com/business_admin/Project/upload">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
+        </el-form-item>
+        <el-form-item label="详情">
+          <el-input v-model="updateParams.info" placeholder="请输入详情" type="textarea" :rows="3" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
