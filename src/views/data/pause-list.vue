@@ -1,16 +1,17 @@
 <template>
   <div class="app-page">
 
-    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
+    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch"
+      @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column label="日期" prop="date" align="center"></el-table-column>
       <el-table-column label="项目名称" prop="upid" align="center"></el-table-column>
       <el-table-column label="数据" prop="data" align="center"></el-table-column>
       <el-table-column label="次留（%）" prop="retention" align="center"></el-table-column>
-      <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
-      <el-table-column label="结算金额(元)" prop="gmv" align="center"></el-table-column>
-      <el-table-column label="结算状态" prop="pay" align="center">
+      <el-table-column label="单价(元)" prop="price" align="center" v-if="userId != 48"></el-table-column>
+      <el-table-column label="结算金额(元)" prop="gmv" align="center" v-if="userId != 48"></el-table-column>
+      <el-table-column label="结算状态" prop="pay" align="center" v-if="userId != 48">
         <template slot-scope="scope">
           <el-tag :type="scope.row.stateTag">{{ scope.row.stateText }}</el-tag>
         </template>
@@ -120,6 +121,7 @@ export default {
   mounted() {
     // 获取列表数据
     this.fetchData();
+    this.userId = this.$store.state.user.userInfo.id;
   },
 };
 </script>

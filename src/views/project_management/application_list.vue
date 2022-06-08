@@ -40,7 +40,8 @@
           <el-input v-model="examineParams.code" placeholder="请输入H5链接" />
         </el-form-item>
         <el-form-item label="上传二维码">
-          <el-upload action="http://nad.bdhuoke.com/business_admin/Project/upload" :on-success="uploadSuccess" ref="codeUpload">
+          <el-upload action="http://nad.bdhuoke.com/business_admin/Project/upload" :on-success="uploadSuccess"
+            ref="codeUpload">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
@@ -88,7 +89,7 @@ export default {
       })
     },
     uploadSuccess(res) {
-      this.examineParams.code_img = `http://nad.bdhuoke.com/business_admin/${res.data}`
+      this.examineParams.code_img = `http://nad.bdhuoke.com/${res.data}`
     },
     currentChange(val) {
       this.params.page = val
