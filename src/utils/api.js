@@ -248,3 +248,11 @@ export const downloadFile = data => {
     responseType: 'blob'
   });
 };
+/* 项目列表暂停 */
+export const pause = data => {
+  return request({
+    method: 'POST',
+    url: '/Project/del',
+    data: qs.stringify(data),
+  });
+};

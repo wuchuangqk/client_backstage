@@ -6,7 +6,8 @@
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column type="index" label="排序" width="50" align="center" />
-      <el-table-column label="项目名称" prop="title" align="center"></el-table-column>
+      <el-table-column label="项目名称" prop="title" align="left"></el-table-column>
+      <el-table-column label="详情" prop="info" align="left"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
       <el-table-column label="单价(元)" prop="price" align="center" v-if="userId != 48" />
       <el-table-column label="项目流程" prop="" align="center">
@@ -83,6 +84,11 @@ export default {
     // 获取列表数据
     fetchData() {
       getProjectList(this.searchParams).then((res) => {
+        res.data.list.forEach(v => {
+          v.pic = v.pic && v.pic.trim()
+          v.video = v.video && v.video.trim()
+          v.file = v.file && v.file.trim()
+        })
         this.tableData = res.data.list;
         this.total = res.data.num;
       });

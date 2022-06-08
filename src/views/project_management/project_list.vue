@@ -8,6 +8,7 @@
         :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
         <el-table-column type="index" label="排序" width="50" align="center" />
         <el-table-column prop="title" label="项目名称" />
+        <el-table-column prop="info" label="详情" />
         <el-table-column prop="price" label="单价(元)" align="right" />
         <el-table-column prop="promotion" label="推广类型" align="center" />
         <el-table-column label="项目流程" align="center">
@@ -17,9 +18,10 @@
             <el-link type="primary" :underline="false" v-if="s.row.file" @click="open(s.row.file)">文件</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="修改项目" width="80" align="center">
+        <el-table-column label="修改项目" width="120" align="center">
           <template slot-scope="s">
             <el-link type="primary" :underline="false" @click="updateProjectPre(s.row)">修改</el-link>
+            <el-link type="primary" :underline="false" @click="doPause(s.row)">暂停</el-link>
           </template>
         </el-table-column>
       </el-table>
@@ -59,6 +61,9 @@
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
+        <el-form-item label="详情">
+          <el-input v-model="saveParams.info" placeholder="请输入详情" type="textarea" :rows="3" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -96,6 +101,9 @@
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
+        <el-form-item label="详情">
+          <el-input v-model="updateParams.info" placeholder="请输入详情" type="textarea" :rows="3" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updateDialog = false">取 消</el-button>
@@ -108,7 +116,7 @@
 <script>
 import { PROMOTION_TYPE } from "@/utils/const";
 import Head from "../../components/Head/index";
-import { getProjectList, saveProject, updateProject } from "../../utils/api";
+import { getProjectList, saveProject, updateProject, pause } from "../../utils/api";
 export default {
   data() {
     return {
@@ -135,11 +143,17 @@ export default {
       token: "",
       updateParams: {},
       updateDialog: false,
+      pauseLoading: false,
     };
   },
   methods: {
     getProjectList() {
       getProjectList(this.listParams).then((res) => {
+        res.data.list.forEach(v => {
+          v.pic = v.pic && v.pic.trim()
+          v.video = v.video && v.video.trim()
+          v.file = v.file && v.file.trim()
+        })
         this.tableData = res.data.list;
         this.total = res.data.num;
       });
@@ -189,6 +203,25 @@ export default {
     updateProjectPre(item) {
       this.updateParams = item;
       this.updateDialog = true;
+    },
+    // 暂停项目
+    doPause(item) {
+      if (this.pauseLoading) return
+      this.$confirm("确定暂停吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.pauseLoading = true
+          pause({ id: item.id }).then((res) => {
+            this.pauseLoading = false
+            if (res.code != 1) return this.$message.error(res.msg);
+            this.$message.success(res.msg);
+            this.fetchData();
+          });
+        })
+        .catch(() => { });
     },
     searchList(params) {
       this.listParams.select = params.select;
