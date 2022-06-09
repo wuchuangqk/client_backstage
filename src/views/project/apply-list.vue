@@ -9,7 +9,7 @@
       <el-table-column label="项目名称" prop="title" align="left"></el-table-column>
       <el-table-column label="详情" prop="info" align="left"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
-      <el-table-column label="单价(元)" prop="price" align="center" v-if="userId != 48" />
+      <el-table-column label="单价(元)" prop="price" align="center" v-if="userId != 48 && userId != 58" />
       <el-table-column label="项目流程" prop="" align="center">
         <template slot-scope="scope">
           <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.pic)">图片</el-link>
