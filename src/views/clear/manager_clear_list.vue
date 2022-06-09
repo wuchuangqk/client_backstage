@@ -5,6 +5,8 @@
     <el-table :data="tableData" style="width: 100%" border
       :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
       <el-table-column type="index" label="排序" width="50" align="center" />
+      <el-table-column prop="title" label="项目名称" />
+      <el-table-column prop="real_name" label="申请人" align="center" />
       <el-table-column prop="pay_account" label="收款账号" align="center" />
       <el-table-column prop="unpay" label="未结算金额(元)" align="center" />
       <el-table-column prop="status" label="状态" align="center">
