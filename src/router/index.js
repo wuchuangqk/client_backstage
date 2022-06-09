@@ -195,6 +195,12 @@ export const constantRoutes = [
         component: () => import('@/views/user_management/message'),
         name: 'message',
         meta: { title: '消息管理' },
+      },
+      {
+        path: 'sonAdminList',
+        component: () => import('@/views/user_management/son_admin_list'),
+        name: 'son_admin_list',
+        meta: { title: '子后台列表' },
       }
     ]
   }

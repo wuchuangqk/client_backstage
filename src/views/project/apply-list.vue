@@ -1,13 +1,15 @@
 <template>
   <div class="app-page">
-    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch" @clickBack="clickBack" />
+
+    <Head :searchParams="templateParams" :functionParams="functionParams" @searchList="doSearch"
+      @clickBack="clickBack" />
     <el-table v-loading="tableLoading" :data="tableData" :header-cell-style="_headerCellStyle" border
       element-loading-spinner="el-icon-loading" element-loading-text="加载中，请稍候……">
       <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column label="项目名称" prop="title" align="left"></el-table-column>
       <el-table-column label="详情" prop="info" align="left"></el-table-column>
       <el-table-column label="推广类型" prop="promotion" align="center"></el-table-column>
-      <el-table-column label="单价(元)" prop="price" align="center"></el-table-column>
+      <el-table-column label="单价(元)" prop="price" align="center" v-if="userId != 48 && userId != 58" />
       <el-table-column label="项目流程" prop="" align="center">
         <template slot-scope="scope">
           <el-link v-if="scope.row.pic" type="primary" :underline="false" @click="open(scope.row.pic)">图片</el-link>
@@ -17,7 +19,8 @@
       </el-table-column>
       <el-table-column label="申请项目" prop="jiesuan" align="center">
         <template slot-scope="scope">
-          <el-link v-if="scope.row.apply !== 0" type="primary" :underline="false" @click="doApply(scope.row)">申请项目</el-link>
+          <el-link v-if="scope.row.apply !== 0" type="primary" :underline="false" @click="doApply(scope.row)">申请项目
+          </el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -53,6 +56,7 @@ export default {
       ],
       // 按钮参数
       functionParams: [{ text: "导出", callback: "exportListData", loading: false }],
+      userId: ""
     };
   },
   methods: {
@@ -108,7 +112,7 @@ export default {
             this.fetchData();
           });
         })
-        .catch(() => {});
+        .catch(() => { });
     },
     // 在新窗口预览
     open(url) {
@@ -118,6 +122,7 @@ export default {
   mounted() {
     // 获取列表数据
     this.fetchData();
+    this.userId = this.$store.state.user.userInfo.id;
   },
 };
 </script>

@@ -264,3 +264,27 @@ export const customPrice = data => {
     data: qs.stringify(data),
   });
 };
+/* 项目列表暂停 */
+export const share_index = data => {
+  return request({
+    method: 'POST',
+    url: '/user/share_index',
+    data: qs.stringify(data),
+  });
+};
+/* 子后台账户添加 */
+export const share_useradd = data => {
+  return request({
+    method: 'POST',
+    url: '/user/share_useradd',
+    data: qs.stringify(data),
+  });
+};
+/* 子账号数量 */
+export const share_num = data => {
+  return request({
+    method: 'POST',
+    url: '/user/share_num',
+    data: qs.stringify(data),
+  });
+};
