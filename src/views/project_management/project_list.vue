@@ -110,6 +110,7 @@
         <el-button type="primary" @click="updateProject">确 定</el-button>
       </div>
     </el-dialog>
+    <CustomPrice ref="custom" />
   </div>
 </template>
 
@@ -117,6 +118,7 @@
 import { PROMOTION_TYPE } from "@/utils/const";
 import Head from "../../components/Head/index";
 import { getProjectList, saveProject, updateProject, pause } from "../../utils/api";
+import CustomPrice from "./components/CustomPrice.vue";
 export default {
   data() {
     return {
@@ -136,7 +138,10 @@ export default {
       },
       tableData: [],
       total: 0,
-      functionParams: [{ text: "添加项目", callback: "saveProjectPre" }],
+      functionParams: [
+        { text: "添加项目", callback: "saveProjectPre" },
+        { text: "自定义价格", callback: "openCustom" },
+        ],
       saveParams: {},
       dialogFormVisible: false,
       promotion: [],
@@ -235,13 +240,17 @@ export default {
     open(url) {
       window.open(url);
     },
+    // 打开自定义用户价格窗口
+    openCustom() {
+      this.$refs.custom.open()
+    }
   },
   mounted() {
     this.promotion = PROMOTION_TYPE;
     this.token = localStorage.getItem("token");
     this.getProjectList();
   },
-  components: { Head },
+  components: { Head, CustomPrice },
 };
 </script>
 

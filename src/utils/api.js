@@ -256,3 +256,11 @@ export const pause = data => {
     data: qs.stringify(data),
   });
 };
+/* 用户自定义价格 */
+export const customPrice = data => {
+  return request({
+    method: 'POST',
+    url: '/project/custom_price',
+    data: qs.stringify(data),
+  });
+};

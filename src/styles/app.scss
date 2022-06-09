@@ -87,3 +87,13 @@
 .el-image__error {
   display: none;
 }
+/* chrome */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* 火狐浏览器 */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
