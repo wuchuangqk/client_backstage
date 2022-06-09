@@ -7,9 +7,10 @@
       <el-table border :header-cell-style="_headerCellStyle" :data="userList">
         <el-table-column prop="id" label="ID" width="60" align="center" />
         <el-table-column prop="user_name" label="管理员名称" />
-        <el-table-column prop="login_times" label="登录次数" />
+        <el-table-column prop="login_times" label="登录次数" width="80" />
         <el-table-column prop="source" label="来源" />
-        <el-table-column prop="last_login_ip" label="上次登录IP" width="130" />
+        <el-table-column prop="p_id" label="上级ID" width="70" align="center" />
+        <el-table-column prop="last_login_ip" label="上次登录IP" width="130" align="center" />
         <el-table-column prop="last_login_time" label="上次登录时间" width="160" align="center" />
         <el-table-column prop="real_name" label="真实姓名" />
         <el-table-column prop="phone" label="手机号" align="center" width="110" />

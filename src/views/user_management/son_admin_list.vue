@@ -47,7 +47,7 @@
           <el-input v-model="useraddParams.city" />
         </el-form-item>
         <el-form-item label="分成比例">
-          <el-input v-model="useraddParams.share" placeholder="请输入小数，试列：0.7 0.8" />
+          <el-input v-model="useraddParams.share" placeholder="请输入小数，例：0.8  为该账号获取所有收益的80%，剩余部分归该账号上级所有" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
