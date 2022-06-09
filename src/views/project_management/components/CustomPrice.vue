@@ -19,7 +19,10 @@
       <el-table-column prop="custom_price" label="当前自定义单价(元)" align="center" />
       <el-table-column label="自定义单价(元)" align="center">
         <template slot-scope="s">
-          <el-input type="number" v-model="s.row.newPrice" @blur="save(s.row)"></el-input>
+          <div class="flex">
+            <el-input type="number" v-model="s.row.newPrice"></el-input>
+            <el-link type="primary" :underline="false" @click="save(s.row)" class="btn">保存</el-link>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -106,4 +109,12 @@ export default {
 </script>
 
 <style lang="scss" scope>
+.flex {
+  display: flex;
+
+  .btn {
+    flex-shrink: 0;
+    margin: 0 10px 0 20px;
+  }
+}
 </style>
