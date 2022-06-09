@@ -5,14 +5,14 @@
         <el-button type="primary" @click="dialogFormVisible2 = true" v-if="addPermission">添加用户</el-button>
       </div>
       <el-table border :header-cell-style="_headerCellStyle" :data="userList">
-        <el-table-column prop="id" label="ID" width="80" align="center" />
+        <el-table-column prop="id" label="ID" width="60" align="center" />
         <el-table-column prop="user_name" label="管理员名称" />
         <el-table-column prop="login_times" label="登录次数" />
         <el-table-column prop="source" label="来源" />
         <el-table-column prop="last_login_ip" label="上次登录IP" width="130" />
         <el-table-column prop="last_login_time" label="上次登录时间" width="160" align="center" />
         <el-table-column prop="real_name" label="真实姓名" />
-        <el-table-column prop="phone" label="手机号" />
+        <el-table-column prop="phone" label="手机号" align="center" width="110" />
         <el-table-column prop="city" label="作业城市" />
         <el-table-column label="状态" width="70" align="center">
           <template slot-scope="s">
@@ -20,7 +20,12 @@
             <el-tag type="success" v-if="s.row.danger === '禁用'">{{ s.row.status }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="子账号数量" align="center">
+          <template slot-scope="s">
+            <el-input-number v-model="s.row.son_num" @change="handleChange(s.row)" size="mini" />
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="160" align="center">
           <template v-if="s.row.id !== 1" slot-scope="s">
             <el-button type="text" @click="userdel(s.row)" v-if="delPermission">删除</el-button>
             <el-button type="text" @click="beforeEdit(s.row)" v-if="editPermission">编辑</el-button>
@@ -29,7 +34,8 @@
         </el-table-column>
       </el-table>
       <div class="content_1">
-        <el-pagination background layout="prev, pager, next,jumper" :total="userListTotal" @current-change="changePage" />
+        <el-pagination background layout="prev, pager, next,jumper" :total="userListTotal"
+          @current-change="changePage" />
       </div>
     </div>
     <el-dialog title="编辑用户" :visible.sync="dialogFormVisible">
@@ -91,7 +97,7 @@
 
 <script>
 import { formatDate, getPermission } from '@/utils';
-import { getUserList, saveUser, delUser, updateUser } from '@/utils/api';
+import { getUserList, saveUser, delUser, updateUser, share_num } from '@/utils/api';
 export default {
   data() {
     return {
@@ -120,6 +126,13 @@ export default {
     };
   },
   methods: {
+    handleChange(val) {
+      let params = { id: val.id, son_num: val.son_num };
+      share_num(params).then(res => {
+        if (res.code == -1) return this.$message.error(res.msg);
+        this.$message.success('修改成功');
+      })
+    },
     // 更改页码
     changePage(page) {
       this.userListParams.page = page;

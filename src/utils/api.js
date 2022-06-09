@@ -272,3 +272,11 @@ export const share_useradd = data => {
     data: qs.stringify(data),
   });
 };
+/* 子账号数量 */
+export const share_num = data => {
+  return request({
+    method: 'POST',
+    url: '/user/share_num',
+    data: qs.stringify(data),
+  });
+};
