@@ -6,6 +6,7 @@
       :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
       <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column prop="title" label="项目名" />
+      <el-table-column prop="price" label="单价(元)" width="160" align="center" />
       <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
       <el-table-column prop="user_name" label="做单人账号" />
       <el-table-column prop="real_name" label="真实姓名" />
