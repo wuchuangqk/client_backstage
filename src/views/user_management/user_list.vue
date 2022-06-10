@@ -2,6 +2,7 @@
   <div>
     <div class="content app-page">
       <div class="content_2">
+        <el-input v-model="userListParams.search" clearable placeholder="查询用户" style="width: 200px;" @input="debounceInput" />
         <el-button type="primary" @click="dialogFormVisible2 = true" v-if="addPermission">添加用户</el-button>
       </div>
       <el-table border :header-cell-style="_headerCellStyle" :data="userList">
@@ -99,11 +100,12 @@
 <script>
 import { formatDate, getPermission } from '@/utils';
 import { getUserList, saveUser, delUser, updateUser, share_num } from '@/utils/api';
+import _ from "lodash";
 export default {
   data() {
     return {
       // 管理员列表参数
-      userListParams: { page: 1, num: 10 },
+      userListParams: { page: 1, num: 10, search: '' },
       // 管理员列表
       userList: [],
       // 管理员列表总数
@@ -124,6 +126,10 @@ export default {
       editPermission: true,
       // 删除管理员权限
       delPermission: true,
+      // 输入防抖
+      debounceInput: _.debounce(() => {
+        this.getUserList();
+      }, 300),
     };
   },
   methods: {

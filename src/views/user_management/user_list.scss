@@ -5,6 +5,7 @@
   }
   .content_2 {
     margin-bottom: 0.2rem;
-    text-align: end;
+    display: flex;
+    justify-content: space-between;
   }
 }
