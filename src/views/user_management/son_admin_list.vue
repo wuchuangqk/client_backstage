@@ -21,6 +21,11 @@
             <el-tag type="success" v-if="s.row.danger === '禁用'">{{ s.row.status }}</el-tag>
           </template>
         </el-table-column>
+        <el-table-column label="操作" align="center" width="60">
+          <template slot-scope="s">
+            <el-button type="text" @click="delUser(s.row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="content_1">
         <el-pagination background layout="prev, pager, next,jumper" :total="count" @current-change="changePage" />
@@ -60,7 +65,7 @@
 
 <script>
 import { formatDate } from '@/utils';
-import { share_index, share_useradd } from '@/utils/api'
+import { delUser, share_index, share_useradd } from '@/utils/api'
 export default {
   data() {
     return {
@@ -90,6 +95,14 @@ export default {
         if (res.code == -1) return this.$message.error(res.msg)
         this.dialogFormVisible2 = false
         this.$message.success('添加成功')
+        this.share_index()
+      })
+    },
+    delUser(item) {
+      console.log(item)
+      delUser({ id: item.id }).then(res => {
+        if (res.code == -1) this.$message.error(res.msg)
+        this.$message.success('删除成功')
         this.share_index()
       })
     },
