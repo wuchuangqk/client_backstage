@@ -154,14 +154,10 @@ export default {
 <style lang="scss" scoped>
 // @import './application_list.scss';
 ::v-deep .disabled {
-  color: #c3c3c3;
+  color: var(--cell-color);
 }
 
 ::v-deep .header {
   padding: 0;
-}
-
-::v-deep .disabled {
-  color: #c3c3c3;
 }
 </style>

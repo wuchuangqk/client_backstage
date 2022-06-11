@@ -13,5 +13,5 @@
 }
 
 ::v-deep .disabled {
-  color: #c3c3c3;
+  color: var(--cell-color);
 }

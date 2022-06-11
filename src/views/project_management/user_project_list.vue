@@ -157,10 +157,7 @@ export default {
 }
 
 ::v-deep .disabled {
-  color: #c3c3c3;
+  color: var(--cell-color);
 }
 
-::v-deep .disabled {
-  color: #c3c3c3;
-}
 </style>
