@@ -51,6 +51,7 @@ export default {
       ],
       // 按钮参数
       functionParams: [{ text: "导出", callback: "exportListData", loading: false }],
+      userId: null,
     };
   },
   methods: {

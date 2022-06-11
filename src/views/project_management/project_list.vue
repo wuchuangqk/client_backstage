@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-page">
 
     <Head :searchParams="searchParams" :functionParams="functionParams" @clickBack="clickBack"
       @searchList="searchList" />
@@ -141,7 +141,7 @@ export default {
       functionParams: [
         { text: "添加项目", callback: "saveProjectPre" },
         { text: "自定义价格", callback: "openCustom" },
-        ],
+      ],
       saveParams: {},
       dialogFormVisible: false,
       promotion: [],
@@ -256,4 +256,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "./project_list.scss";
+
+::v-deep .header {
+  padding: 0;
+}
 </style>

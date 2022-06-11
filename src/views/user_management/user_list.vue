@@ -5,7 +5,7 @@
         <el-input v-model="userListParams.search" clearable placeholder="查询用户" style="width: 200px;" @input="debounceInput" />
         <el-button type="primary" @click="dialogFormVisible2 = true" v-if="addPermission">添加用户</el-button>
       </div>
-      <el-table border :header-cell-style="_headerCellStyle" :data="userList">
+      <el-table border :header-cell-style="_headerCellStyle" :data="userList" :row-class-name="tableRowClassName">
         <el-table-column prop="id" label="ID" width="60" align="center" />
         <el-table-column prop="user_name" label="管理员名称" />
         <el-table-column prop="login_times" label="登录次数" width="80" />
@@ -207,6 +207,12 @@ export default {
           rule
         }
       })
+    },
+    // 上级ID不为0的行设置背景颜色灰色
+    tableRowClassName({row}) {
+      if (row.p_id != 0) {
+        return 'disabled'
+      }
     }
   },
   mounted() {
