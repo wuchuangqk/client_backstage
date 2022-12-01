@@ -3,7 +3,7 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 
 const service = axios.create({
-  baseURL: 'http://nad.bdhuoke.com/business_admin',
+  baseURL: 'https://nad.bdhuoke.com/business_admin',
   timeout: 10000,
   headers: { "Content-Type": 'application/x-www-form-urlencoded' }
 })

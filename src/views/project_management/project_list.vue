@@ -18,10 +18,12 @@
             <el-link type="primary" :underline="false" v-if="s.row.file" @click="open(s.row.file)">文件</el-link>
           </template>
         </el-table-column>
+        <el-table-column prop="status" label="项目状态" align="center" />
         <el-table-column label="修改项目" width="120" align="center">
           <template slot-scope="s">
             <el-link type="primary" :underline="false" @click="updateProjectPre(s.row)">修改</el-link>
-            <el-link type="primary" :underline="false" @click="doPause(s.row)">暂停</el-link>
+            <el-link type="primary" :underline="false" @click="doPause(s.row)" v-if="s.row.status == '启用'">暂停</el-link>
+            <el-link type="primary" :underline="false" @click="doRef(s.row)" v-if="s.row.status == '禁用'">开启</el-link>
           </template>
         </el-table-column>
       </el-table>
@@ -113,11 +115,10 @@
     <CustomPrice ref="custom" />
   </div>
 </template>
-
 <script>
 import { PROMOTION_TYPE } from "@/utils/const";
 import Head from "../../components/Head/index";
-import { getProjectList, saveProject, updateProject, pause } from "../../utils/api";
+import { getProjectList, saveProject, updateProject, pause, doRef } from "../../utils/api";
 import CustomPrice from "./components/CustomPrice.vue";
 export default {
   data() {
@@ -141,7 +142,7 @@ export default {
       functionParams: [
         { text: "添加项目", callback: "saveProjectPre" },
         { text: "自定义价格", callback: "openCustom" },
-        ],
+      ],
       saveParams: {},
       dialogFormVisible: false,
       promotion: [],
@@ -149,6 +150,7 @@ export default {
       updateParams: {},
       updateDialog: false,
       pauseLoading: false,
+      refLoading: false,
     };
   },
   methods: {
@@ -158,6 +160,7 @@ export default {
           v.pic = v.pic && v.pic.trim()
           v.video = v.video && v.video.trim()
           v.file = v.file && v.file.trim()
+          v.status = v.status == 1 ? "启用" : "禁用"
         })
         this.tableData = res.data.list;
         this.total = res.data.num;
@@ -223,7 +226,7 @@ export default {
             this.pauseLoading = false
             if (res.code != 1) return this.$message.error(res.msg);
             this.$message.success(res.msg);
-            this.fetchData();
+            this.getProjectList();
           });
         })
         .catch(() => { });
@@ -243,7 +246,25 @@ export default {
     // 打开自定义用户价格窗口
     openCustom() {
       this.$refs.custom.open()
-    }
+    },
+    doRef(item) {
+      if (this.refLoading) return
+      this.$confirm("确定开启吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.refLoading = true
+          doRef({ id: item.id }).then((res) => {
+            this.refLoading = false
+            if (res.code != 1) return this.$message.error(res.msg);
+            this.$message.success(res.msg);
+            this.getProjectList();
+          });
+        })
+        .catch(() => { });
+    },
   },
   mounted() {
     this.promotion = PROMOTION_TYPE;

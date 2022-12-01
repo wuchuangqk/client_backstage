@@ -288,3 +288,11 @@ export const share_num = data => {
     data: qs.stringify(data),
   });
 };
+/* 项目列表开启 */
+export const doRef = data => {
+  return request({
+    method: 'POST',
+    url: '/Project/ref',
+    data: qs.stringify(data),
+  });
+};
