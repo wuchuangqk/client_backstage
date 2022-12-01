@@ -7,7 +7,7 @@
           <el-input v-model="item.value" clearable :placeholder="item.placeholder" @input="debounceInput"
             v-if="item.type === 'input'" />
           <!-- 下拉框 -->
-          <el-select v-model="item.value" :clearable="item.clearable === undefined ? true : item.clearable" :placeholder="item.placeholder" @change="searchList"
+          <el-select v-model="item.value" :clearable="item.clearable === undefined ? true : item.clearable" :placeholder="item.placeholder" filterable @change="searchList"
             v-if="item.type === 'select'">
             <el-option v-for="(item2, index2) in item.data" :key="index2" :value="item2.value" :label="item2.key" />
           </el-select>
@@ -77,11 +77,11 @@ export default {
 
 <style lang="scss" >
 .header {
-  height: 1.15rem;
+  // height: 1.15rem;
   padding: 0 .25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0;
+  margin-bottom: 16px;
 }
 </style>

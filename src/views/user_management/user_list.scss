@@ -3,8 +3,15 @@
     text-align: end;
     margin-top: 0.2rem;
   }
+
   .content_2 {
     margin-bottom: 0.2rem;
-    text-align: end;
+    display: flex;
+    justify-content: space-between;
   }
+
+}
+
+::v-deep .disabled {
+  color: var(--cell-color);
 }

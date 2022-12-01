@@ -53,6 +53,7 @@ export default {
       functionParams: [
         { text: "导出", callback: "exportListData", loading: false },
       ],
+      userId: null,
     };
   },
   methods: {

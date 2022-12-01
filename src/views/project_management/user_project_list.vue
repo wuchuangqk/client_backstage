@@ -3,9 +3,10 @@
 
     <Head :searchParams="templateParams" @searchList="doSearch" />
     <el-table :data="tableData" style="width: 100%" border
-      :header-cell-style="{ background: '#F8FBFF', color: '#505050' }">
+      :header-cell-style="{ background: '#F8FBFF', color: '#505050' }" :row-class-name="tableRowClassName">
       <el-table-column type="index" label="排序" width="50" align="center" />
       <el-table-column prop="title" label="项目名" />
+      <el-table-column prop="price" label="单价(元)" width="160" align="center" />
       <el-table-column prop="add_time" label="添加时间" width="160" align="center" />
       <el-table-column prop="user_name" label="做单人账号" />
       <el-table-column prop="real_name" label="真实姓名" />
@@ -135,6 +136,12 @@ export default {
       this.searchParams = Object.assign(this.searchParams, params);
       this.search();
     },
+    // 上级ID不为0的行设置背景颜色灰色
+    tableRowClassName({ row }) {
+      if (row.p_id != 0) {
+        return 'disabled'
+      }
+    }
   },
   mounted() {
     this.fetchData()
@@ -148,4 +155,9 @@ export default {
 ::v-deep .header {
   padding: 0;
 }
+
+::v-deep .disabled {
+  color: var(--cell-color);
+}
+
 </style>

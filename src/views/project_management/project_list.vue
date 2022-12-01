@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-page">
 
     <Head :searchParams="searchParams" :functionParams="functionParams" @clickBack="clickBack"
       @searchList="searchList" />
@@ -277,4 +277,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "./project_list.scss";
+
+::v-deep .header {
+  padding: 0;
+}
 </style>
